@@ -28,17 +28,25 @@ three-page marketing site does not need a bundler.
    is self-hosted in `fonts/` for exactly this reason.
 2. **The copy may not overstate the app.** Every factual claim here has to be
    true of the shipped app. See "Claims and where they come from" below.
-3. **The nine words are fixed**, and are the app's: Property, Place, Thing,
+3. **Copy must match the screen beside it, and be plain.** A heading that
+   promises a boiler service next to a screenshot of a fridge is the reader's
+   first reason to distrust everything else on the page. Before changing a
+   feature heading, look at the image it sits with. Keep the language
+   region-neutral too — no "aeroplane mode", "council tax" or "buildings
+   insurance" against screenshots priced in dollars; prefer the ordinary word
+   that works everywhere. The sample home is American, so the copy is.
+
+4. **The nine words are fixed**, and are the app's: Property, Place, Thing,
    Task, Policy, Event, Note, Person, Account. Never write "asset", "item",
    "location", "occurrence" or "produce" in user-facing copy — not even in a
    marketing headline where it reads more naturally.
-4. **Brand colours are the app's four**, copied into `:root` in `styles.css`
+5. **Brand colours are the app's four**, copied into `:root` in `styles.css`
    and not re-picked by eye: Off-White `#F1F1F1`, Champagne `#D9B68C`, Warm
    Sand `#C8BFB1`, Deep Green `#4A5D4E`. Everything else is derived from them.
-5. **No real personal data.** Screenshots must come from a seeded demo
+6. **No real personal data.** Screenshots must come from a seeded demo
    property, never the owner's actual house. A public repo preserves a mistake
    in git history even after the file is replaced.
-6. Pages are hand-written, kebab-case filenames, and **every page works with
+7. Pages are hand-written, kebab-case filenames, and **every page works with
    JavaScript disabled**. There is exactly one script, inlined on each page:
    the theme toggle. It is progressive enhancement and must stay that way —
    the control is `display:none` until the script adds `.js` to `<html>`, so a
@@ -46,14 +54,14 @@ three-page marketing site does not need a bundler.
    follows `prefers-color-scheme` as it always did. Do not add a second script
    without a reason that survives being said out loud.
 
-7. **Theming is three-state**: the OS preference by default, or an explicit
+8. **Theming is three-state**: the OS preference by default, or an explicit
    light/dark choice stored in `localStorage` and applied as `data-theme` on
    `<html>` before first paint. Every themed rule therefore needs all three
    selectors — bare `:root`, `@media (prefers-color-scheme: dark)
    :root:not([data-theme="light"])`, and `:root[data-theme="dark"]`. A colour
    defined only inside the media query will not follow the toggle.
 
-8. **The screenshots are theme-aware and cannot be `<picture>`.** A `<source
+9. **The screenshots are theme-aware and cannot be `<picture>`.** A `<source
    media="(prefers-color-scheme: dark)">` only ever answers to the operating
    system, so it ignores the toggle. Each screen is a `div.screen` carrying
    `--shot-light` and `--shot-dark`, with the rules in `styles.css` choosing
@@ -78,9 +86,10 @@ The screens were produced by driving `docs/reference/prototype.html` in
 headless Chrome: a 390 x 844 viewport in an iframe (Chrome will not open a
 window narrower than 500px, so the phone is an iframe inside a wider window and
 the shot is cropped to it), `themePref` set to `light` and `dark` for the two
-halves of each `<picture>`, and the empty `.toast`/`.sheet` scaffolding hidden.
+halves of each `--shot-light`/`--shot-dark` pair, and the empty
+`.toast`/`.sheet` scaffolding hidden.
 The content is the fictional sample home — Honda CR-V, LG fridge, 14 Alder
-Street — which is what rule 5 above is asking for.
+Street — which is what rule 6 above is asking for.
 
 **These are renders of the prototype, not captures of the shipped app.** The
 prototype is the app's visual target and the two are meant to match, but no
