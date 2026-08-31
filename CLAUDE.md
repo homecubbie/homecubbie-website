@@ -38,8 +38,29 @@ three-page marketing site does not need a bundler.
 5. **No real personal data.** Screenshots must come from a seeded demo
    property, never the owner's actual house. A public repo preserves a mistake
    in git history even after the file is replaced.
-6. Pages are hand-written, kebab-case filenames, and every page works with
-   JavaScript disabled. There is currently no JavaScript at all.
+6. Pages are hand-written, kebab-case filenames, and **every page works with
+   JavaScript disabled**. There is exactly one script, inlined on each page:
+   the theme toggle. It is progressive enhancement and must stay that way —
+   the control is `display:none` until the script adds `.js` to `<html>`, so a
+   reader without JavaScript is never shown a dead button, and the page still
+   follows `prefers-color-scheme` as it always did. Do not add a second script
+   without a reason that survives being said out loud.
+
+7. **Theming is three-state**: the OS preference by default, or an explicit
+   light/dark choice stored in `localStorage` and applied as `data-theme` on
+   `<html>` before first paint. Every themed rule therefore needs all three
+   selectors — bare `:root`, `@media (prefers-color-scheme: dark)
+   :root:not([data-theme="light"])`, and `:root[data-theme="dark"]`. A colour
+   defined only inside the media query will not follow the toggle.
+
+8. **The screenshots are theme-aware and cannot be `<picture>`.** A `<source
+   media="(prefers-color-scheme: dark)">` only ever answers to the operating
+   system, so it ignores the toggle. Each screen is a `div.screen` carrying
+   `--shot-light` and `--shot-dark`, with the rules in `styles.css` choosing
+   between them; the browser fetches only the one it paints. Keep the
+   `role="img"` and `aria-label` — they are the only description a screen
+   reader gets. **Both halves of every pair must exist**: a screen added in
+   light only will show the wrong theme's image to half the readers.
 
 ## Where the artwork comes from
 

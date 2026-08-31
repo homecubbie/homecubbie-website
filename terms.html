@@ -12,6 +12,13 @@
 <link rel="icon" href="assets/favicon.png" sizes="any">
 <link rel="apple-touch-icon" href="assets/app-icon.png">
 <link rel="stylesheet" href="styles.css">
+<script>
+/* Applies a saved theme before first paint, so a reader who chose dark never
+   sees a flash of the light page. Also marks the document as script-capable,
+   which is what reveals the toggle. */
+(function(){var d=document.documentElement;try{var t=localStorage.getItem("hc-theme");
+if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList.add("js");})();
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -22,6 +29,10 @@
     <nav>
       <a href="privacy.html">Privacy</a>
       <a href="support.html">Support</a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.2v2.1M12 19.7v2.1M4.6 4.6l1.5 1.5M17.9 17.9l1.5 1.5M2.2 12h2.1M19.7 12h2.1M4.6 19.4l1.5-1.5M17.9 6.1l1.5-1.5"/></svg>
+      </button>
     </nav>
   </header>
 </div>
@@ -123,5 +134,22 @@
   </footer>
 </div>
 
+<script>
+/* The toggle. Two states, remembered per browser; with no stored choice the
+   page follows the operating system, which is why the icon is recomputed when
+   the system preference changes underneath us. */
+(function(){
+  var d=document.documentElement, b=document.querySelector(".theme-toggle");
+  if(!b)return;
+  var mq=matchMedia("(prefers-color-scheme: dark)");
+  function effective(){return d.getAttribute("data-theme")||(mq.matches?"dark":"light");}
+  function sync(){var e=effective();b.setAttribute("aria-pressed",e==="dark");
+    b.setAttribute("aria-label",e==="dark"?"Switch to light mode":"Switch to dark mode");}
+  b.addEventListener("click",function(){var n=effective()==="dark"?"light":"dark";
+    d.setAttribute("data-theme",n);try{localStorage.setItem("hc-theme",n);}catch(e){}sync();});
+  mq.addEventListener("change",sync);
+  sync();
+})();
+</script>
 </body>
 </html>

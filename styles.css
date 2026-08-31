@@ -55,8 +55,12 @@
   --shadow-lift: 0 2px 4px rgba(31,29,26,.06), 0 32px 64px -24px rgba(31,29,26,.28);
 }
 
+/* Dark values live in one place and are applied by two selectors: the OS
+   preference (unless the reader has explicitly chosen light) and the explicit
+   choice itself. The toggle in the masthead sets data-theme on <html>. */
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --paper: #141614;
     --card: #1e211e;
     --linen: #282c28;
@@ -76,6 +80,27 @@
     --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
     --shadow-lift: 0 2px 4px rgba(0,0,0,.5), 0 32px 64px -24px rgba(0,0,0,.8);
   }
+}
+
+:root[data-theme="dark"] {
+    --paper: #141614;
+    --card: #1e211e;
+    --linen: #282c28;
+    --rule: #3b413b;
+    --ink: #eceae4;
+    --muted: #aba79d;
+    --faint: #84806f;
+    --green: #9cbda6;
+    --green-tint: #212c23;
+    --on-green: #141614;
+    --bronze: #e0c79b;
+    --champ-tint: #332818;
+    --champ-line: #4c3c25;
+    --moss: #63d8a4;
+    --moss-tint: #172c20;
+    --frame: #000;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
+    --shadow-lift: 0 2px 4px rgba(0,0,0,.5), 0 32px 64px -24px rgba(0,0,0,.8);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -393,3 +418,63 @@ code {
   border-radius: 5px;
   padding: 0.1em 0.35em;
 }
+
+/* ---------- screenshots that follow the chosen theme ----------
+   A <picture> with a prefers-color-scheme media query only ever answers to the
+   operating system, so it cannot follow the toggle. These are background
+   images instead: each element carries its own pair as custom properties and
+   the rules below choose one, which also means the browser fetches only the
+   image it actually paints. The element keeps role="img" and an aria-label so
+   nothing is lost to a screen reader. */
+
+.screen {
+  width: 100%;
+  aspect-ratio: 780 / 1688;
+  border-radius: 38px;
+  background: var(--shot-light) center / cover no-repeat;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .screen { background-image: var(--shot-dark); }
+}
+
+:root[data-theme="dark"] .screen { background-image: var(--shot-dark); }
+:root[data-theme="light"] .screen { background-image: var(--shot-light); }
+
+/* ---------- theme toggle ----------
+   Hidden until the script that drives it has run, so a reader with JavaScript
+   off is never shown a control that cannot do anything. */
+
+.theme-toggle { display: none; }
+.js .theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.theme-toggle:hover { color: var(--ink); background: var(--linen); }
+.theme-toggle svg { width: 18px; height: 18px; display: block; }
+
+/* show the icon of the mode you would switch *to* */
+.theme-toggle .sun { display: none; }
+.theme-toggle .moon { display: block; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
+}
+
+:root[data-theme="dark"] .theme-toggle .sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .moon { display: none; }
+:root[data-theme="light"] .theme-toggle .sun { display: none; }
+:root[data-theme="light"] .theme-toggle .moon { display: block; }
+
+.masthead nav { align-items: center; }

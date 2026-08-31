@@ -20,6 +20,13 @@
 <link rel="icon" href="assets/favicon.png" sizes="any">
 <link rel="apple-touch-icon" href="assets/app-icon.png">
 <link rel="stylesheet" href="styles.css">
+<script>
+/* Applies a saved theme before first paint, so a reader who chose dark never
+   sees a flash of the light page. Also marks the document as script-capable,
+   which is what reveals the toggle. */
+(function(){var d=document.documentElement;try{var t=localStorage.getItem("hc-theme");
+if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList.add("js");})();
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -30,6 +37,10 @@
     <nav>
       <a href="privacy.html">Privacy</a>
       <a href="support.html">Support</a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.2v2.1M12 19.7v2.1M4.6 4.6l1.5 1.5M17.9 17.9l1.5 1.5M2.2 12h2.1M19.7 12h2.1M4.6 19.4l1.5-1.5M17.9 6.1l1.5-1.5"/></svg>
+      </button>
     </nav>
   </header>
 </div>
@@ -52,11 +63,8 @@
       </div>
       <div class="feature-art">
         <div class="device">
-          <picture>
-            <source srcset="assets/screens/now-dark.png" media="(prefers-color-scheme: dark)">
-            <img src="assets/screens/now-light.png" width="780" height="1688"
-                 alt="The Now screen: two late tasks, two due today, and a card warning that the fridge warranty ended in June.">
-          </picture>
+          <div class="screen" role="img" aria-label="The Now screen: two late tasks, two due today, and a card warning that the fridge warranty ended in June."
+                 style="--shot-light:url('assets/screens/now-light.png');--shot-dark:url('assets/screens/now-dark.png')"></div>
         </div>
       </div>
     </div>
@@ -117,11 +125,8 @@
         </div>
         <div class="feature-art">
           <div class="device">
-            <picture>
-              <source srcset="assets/screens/home-dark.png" media="(prefers-color-scheme: dark)">
-              <img src="assets/screens/home-light.png" width="780" height="1688" loading="lazy"
-                   alt="The Home screen listing seven places and ten things, with a card noting three things still under warranty.">
-            </picture>
+            <div class="screen" role="img" aria-label="The Home screen listing seven places and ten things, with a card noting three things still under warranty."
+                 style="--shot-light:url('assets/screens/home-light.png');--shot-dark:url('assets/screens/home-dark.png')"></div>
           </div>
         </div>
       </div>
@@ -136,11 +141,8 @@
         </div>
         <div class="feature-art">
           <div class="device">
-            <picture>
-              <source srcset="assets/screens/thing-dark.png" media="(prefers-color-scheme: dark)">
-              <img src="assets/screens/thing-light.png" width="780" height="1688" loading="lazy"
-                   alt="A Thing detail screen for a fridge, showing its age, warranty state, spend, support contact and scheduled tasks.">
-            </picture>
+            <div class="screen" role="img" aria-label="A Thing detail screen for a fridge, showing its age, warranty state, spend, support contact and scheduled tasks."
+                 style="--shot-light:url('assets/screens/thing-light.png');--shot-dark:url('assets/screens/thing-dark.png')"></div>
           </div>
         </div>
       </div>
@@ -156,11 +158,8 @@
         </div>
         <div class="feature-art">
           <div class="device">
-            <picture>
-              <source srcset="assets/screens/policy-dark.png" media="(prefers-color-scheme: dark)">
-              <img src="assets/screens/policy-light.png" width="780" height="1688" loading="lazy"
-                   alt="A Policy detail screen for auto insurance, showing the term, cost, renewal date and policy fields.">
-            </picture>
+            <div class="screen" role="img" aria-label="A Policy detail screen for auto insurance, showing the term, cost, renewal date and policy fields."
+                 style="--shot-light:url('assets/screens/policy-light.png');--shot-dark:url('assets/screens/policy-dark.png')"></div>
           </div>
         </div>
       </div>
@@ -176,11 +175,8 @@
         </div>
         <div class="feature-art">
           <div class="device">
-            <picture>
-              <source srcset="assets/screens/notes-dark.png" media="(prefers-color-scheme: dark)">
-              <img src="assets/screens/notes-light.png" width="780" height="1688" loading="lazy"
-                   alt="The Handbook screen, where notes about the house are grouped by category.">
-            </picture>
+            <div class="screen" role="img" aria-label="The Handbook screen, where notes about the house are grouped by category."
+                 style="--shot-light:url('assets/screens/notes-light.png');--shot-dark:url('assets/screens/notes-dark.png')"></div>
           </div>
         </div>
       </div>
@@ -211,11 +207,8 @@
         </div>
         <div class="feature-art">
           <div class="device">
-            <picture>
-              <source srcset="assets/screens/onboard-dark.png" media="(prefers-color-scheme: dark)">
-              <img src="assets/screens/onboard-light.png" width="780" height="1688" loading="lazy"
-                   alt="The setup screen: Start small — you do not have to enter your whole house. Chips for the kind of home and what you have got.">
-            </picture>
+            <div class="screen" role="img" aria-label="The setup screen: Start small — you do not have to enter your whole house. Chips for the kind of home and what you have got."
+                 style="--shot-light:url('assets/screens/onboard-light.png');--shot-dark:url('assets/screens/onboard-dark.png')"></div>
           </div>
         </div>
       </div>
@@ -263,5 +256,22 @@
   </footer>
 </div>
 
+<script>
+/* The toggle. Two states, remembered per browser; with no stored choice the
+   page follows the operating system, which is why the icon is recomputed when
+   the system preference changes underneath us. */
+(function(){
+  var d=document.documentElement, b=document.querySelector(".theme-toggle");
+  if(!b)return;
+  var mq=matchMedia("(prefers-color-scheme: dark)");
+  function effective(){return d.getAttribute("data-theme")||(mq.matches?"dark":"light");}
+  function sync(){var e=effective();b.setAttribute("aria-pressed",e==="dark");
+    b.setAttribute("aria-label",e==="dark"?"Switch to light mode":"Switch to dark mode");}
+  b.addEventListener("click",function(){var n=effective()==="dark"?"light":"dark";
+    d.setAttribute("data-theme",n);try{localStorage.setItem("hc-theme",n);}catch(e){}sync();});
+  mq.addEventListener("change",sync);
+  sync();
+})();
+</script>
 </body>
 </html>
