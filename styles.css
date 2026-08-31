@@ -385,3 +385,11 @@ footer .note { margin-top: var(--s5); }
 }
 
 :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 4px; }
+
+code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--linen);
+  border-radius: 5px;
+  padding: 0.1em 0.35em;
+}

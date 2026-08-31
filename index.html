@@ -11,6 +11,11 @@
 <meta property="og:title" content="HomeCubbie — your house, on your phone, and nowhere else">
 <meta property="og:description" content="An offline-first app for keeping track of a home. No account, no server, no sync.">
 <meta property="og:url" content="https://homecubbie.com/">
+<meta property="og:image" content="https://homecubbie.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HomeCubbie — your house, on your phone. No account, no server, nothing leaves the device.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#4A5D4E">
 <link rel="icon" href="assets/favicon.png" sizes="any">
 <link rel="apple-touch-icon" href="assets/app-icon.png">
@@ -181,6 +186,41 @@
       </div>
     </section>
 
+
+    <!-- ---------------- getting started ---------------- -->
+    <section>
+      <div class="section-head">
+        <p class="eyebrow">Getting started</p>
+        <h2>You do not have to enter your whole house</h2>
+        <p>The objection to every app like this is the evening you imagine
+        spending typing in your possessions. HomeCubbie is built to skip it.</p>
+      </div>
+
+      <div class="feature">
+        <div>
+          <h3>Start small, and let it fill in</h3>
+          <p>Setup asks what kind of home you have and which handful of things
+          you have got — a garage, a yard, a basement — and then
+          <strong>proposes the Places and Tasks that usually follow</strong>:
+          test the smoke alarms monthly, replace the furnace filter quarterly,
+          clear the gutters twice a year.</p>
+          <p>Nothing is saved until you say so, anything can be dropped, and the
+          whole step can be skipped if you would rather add things yourself. A
+          typical start is seven Places and five Tasks, and the first reminder
+          arrives the next morning.</p>
+        </div>
+        <div class="feature-art">
+          <div class="device">
+            <picture>
+              <source srcset="assets/screens/onboard-dark.png" media="(prefers-color-scheme: dark)">
+              <img src="assets/screens/onboard-light.png" width="780" height="1688" loading="lazy"
+                   alt="The setup screen: Start small — you do not have to enter your whole house. Chips for the kind of home and what you have got.">
+            </picture>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ---------------- the trade ---------------- -->
     <section>
       <div class="callout narrow">
@@ -192,6 +232,12 @@
         no server, there is nothing to restore from if you lose the phone and
         have no backup file. Take one occasionally, and put it somewhere you
         trust.</p>
+        <p><strong>The backup is a plain <code>.zip</code>, on purpose.</strong>
+        Inside it are a small manifest, one text file per table with a record on
+        each line, and your documents beside them. Every operating system and
+        file manager already opens it, so you can look at your own data without
+        HomeCubbie's help — and if this app ever disappears, what you are left
+        holding is still readable.</p>
       </div>
     </section>
 
@@ -207,6 +253,7 @@
       </div>
       <nav>
         <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms of use</a>
         <a href="support.html">Support</a>
         <a href="mailto:support@homecubbie.com">support@homecubbie.com</a>
       </nav>
