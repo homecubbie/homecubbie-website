@@ -41,6 +41,35 @@ three-page marketing site does not need a bundler.
 6. Pages are hand-written, kebab-case filenames, and every page works with
    JavaScript disabled. There is currently no JavaScript at all.
 
+## Where the artwork comes from
+
+Nothing in `assets/` was drawn here. All of it is generated from, or copied
+out of, the app repository:
+
+| File | Source |
+|---|---|
+| `assets/mark.svg` | `assets/images/homecubbie-mark.svg` — the app's mark, unmodified |
+| `assets/app-icon.png`, `assets/favicon.png` | `assets/images/icon.png`, `favicon.png` |
+| `assets/screens/*.png` | rendered from `docs/reference/prototype.html` |
+| the tokens in `styles.css` | `src/theme/palette.ts` and the prototype's `:root` block |
+
+The screens were produced by driving `docs/reference/prototype.html` in
+headless Chrome: a 390 x 844 viewport in an iframe (Chrome will not open a
+window narrower than 500px, so the phone is an iframe inside a wider window and
+the shot is cropped to it), `themePref` set to `light` and `dark` for the two
+halves of each `<picture>`, and the empty `.toast`/`.sheet` scaffolding hidden.
+The content is the fictional sample home — Honda CR-V, LG fridge, 14 Alder
+Street — which is what rule 5 above is asking for.
+
+**These are renders of the prototype, not captures of the shipped app.** The
+prototype is the app's visual target and the two are meant to match, but no
+test checks that they still do, and a marketing image showing a screen the app
+does not have is exactly the kind of overstatement rule 2 exists to stop.
+Before the site goes public, replace `assets/screens/` with real captures from
+a device or simulator running the seeded sample home
+(`src/dev/sample-home/seed-sample-home.ts`) — which is work the App Store
+listing needs anyway.
+
 ## Claims and where they come from
 
 The privacy page is the one that matters, because a false statement there is a
