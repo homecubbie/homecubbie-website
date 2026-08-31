@@ -1,0 +1,327 @@
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("fonts/BricolageGrotesque_600SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+ * HomeCubbie — site styles.
+ *
+ * The four brand colours are the app's, copied from its palette.ts and not
+ * re-picked here: Off-White #F1F1F1, Champagne #D9B68C, Warm Sand #C8BFB1,
+ * Deep Green #4A5D4E. Everything else is derived from them, the same way the
+ * app derives its warm neutral ramp, so the site and the app read as one
+ * product rather than two that share a logo.
+ */
+
+:root {
+  --off-white: #f1f1f1;
+  --champagne: #d9b68c;
+  --warm-sand: #c8bfb1;
+  --deep-green: #4a5d4e;
+
+  --page: #f1f1f1;
+  --paper: #faf9f7;
+  --linen: #e7e2d9;
+  --rule: #cbc4b8;
+  --rule-strong: #66615a;
+  --ink: #1e1c19;
+  --ink-muted: #5c574e;
+  --accent: #4a5d4e;
+  --accent-ink: #faf9f7;
+  --accent-soft: #e4e9e4;
+
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --measure: 34rem;
+  --shell: 62rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #141614;
+    --paper: #1e211e;
+    --linen: #282c28;
+    --rule: #3b413b;
+    --rule-strong: #869486;
+    --ink: #eceae4;
+    --ink-muted: #afaca2;
+    --accent: #d9b68c;
+    --accent-ink: #1e1c19;
+    --accent-soft: #232823;
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.6em;
+  text-wrap: balance;
+}
+
+h1 { font-size: clamp(2.25rem, 6vw, 3.5rem); }
+h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); margin-top: 2.5em; }
+h3 { font-size: 1.1875rem; margin-top: 2em; }
+
+p, ul, ol { max-width: var(--measure); }
+p { margin: 0 0 1.15em; }
+
+a { color: inherit; text-decoration-color: var(--rule-strong); text-underline-offset: 0.18em; }
+a:hover { text-decoration-color: currentColor; }
+
+strong { font-weight: 650; }
+
+.shell {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 2.5rem);
+}
+
+/* --- masthead ------------------------------------------------------- */
+
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 1.75rem 0;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.wordmark .mark {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 0.42rem;
+  background: var(--deep-green);
+  border: 1px solid var(--rule);
+  display: inline-block;
+  position: relative;
+  flex: none;
+}
+
+.wordmark .mark::after {
+  content: "";
+  position: absolute;
+  inset: 0.42rem 0.3rem auto;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--champagne);
+}
+
+.masthead nav {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9375rem;
+}
+
+.masthead nav a { text-decoration: none; color: var(--ink-muted); }
+.masthead nav a:hover { color: var(--ink); }
+
+/* --- hero ----------------------------------------------------------- */
+
+.hero { padding: clamp(2.5rem, 8vw, 5.5rem) 0 clamp(2rem, 5vw, 3.5rem); }
+
+.lede {
+  font-size: clamp(1.125rem, 2.2vw, 1.3125rem);
+  line-height: 1.55;
+  color: var(--ink-muted);
+  max-width: 32rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.35rem;
+  border-radius: 0.6rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--rule-strong);
+}
+
+.note {
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+  margin: 0;
+}
+
+/* --- panels --------------------------------------------------------- */
+
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 0.9rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  margin: 2rem 0;
+}
+
+.panel > :first-child { margin-top: 0; }
+.panel > :last-child { margin-bottom: 0; }
+
+.pledge {
+  border-left: 3px solid var(--champagne);
+}
+
+/* --- the nine words ------------------------------------------------- */
+
+.words {
+  list-style: none;
+  padding: 0;
+  margin: 1.75rem 0 0;
+  max-width: none;
+  display: grid;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 0.9rem;
+  overflow: hidden;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.words li {
+  background: var(--paper);
+  padding: 1.05rem 1.25rem;
+}
+
+.words dfn {
+  display: block;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  margin-bottom: 0.15rem;
+}
+
+.words span {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* --- prose lists ---------------------------------------------------- */
+
+.tight { padding-left: 1.15rem; }
+.tight li { margin-bottom: 0.5em; }
+
+.plain {
+  list-style: none;
+  padding: 0;
+}
+
+.plain li {
+  position: relative;
+  padding-left: 1.6rem;
+  margin-bottom: 0.55em;
+}
+
+.plain li::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.72em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--champagne);
+}
+
+/* --- document pages ------------------------------------------------- */
+
+.doc { padding: clamp(1.5rem, 5vw, 3rem) 0 1rem; }
+
+.doc-meta {
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+  margin-bottom: 2.5rem;
+}
+
+/* --- footer --------------------------------------------------------- */
+
+footer {
+  margin-top: clamp(3rem, 8vw, 5rem);
+  border-top: 1px solid var(--rule);
+  padding: 2rem 0 3rem;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+footer a { text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* --- accessibility -------------------------------------------------- */
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  padding: 0.6rem 1rem;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: 0.5rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
