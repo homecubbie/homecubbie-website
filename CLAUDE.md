@@ -1,9 +1,10 @@
 # homecubbie.com — project instructions
 
 The public website for HomeCubbie, an offline-first home maintenance and
-records app for iOS and Android. Three static pages: a landing page, a privacy
-policy, and a support page. The last two are **required fields in App Store
-Connect**, which is why this site exists at all.
+records app for iOS and Android. Four static pages: a landing page, a privacy
+policy, a support page and terms of use, plus a 404. The privacy and support
+pages are **required fields in App Store Connect**, which is why this site
+exists at all.
 
 This repository is **not** the app. The app lives in a separate private
 repository (`HomeCubbie`, sibling directory locally) and its rules — layering,
@@ -17,7 +18,9 @@ build step, no framework, no package manager, no `node_modules`. Edit the HTML
 and push; that is the whole deployment.
 
 Keep it that way unless there is a reason that survives being said out loud. A
-three-page marketing site does not need a bundler.
+four-page marketing site does not need a bundler. `tools/screens/` holds the
+scripts that make the screenshots; they run on a developer's machine against
+the app's own web build, and nothing on the site depends on them.
 
 ## Non-negotiables
 
@@ -43,9 +46,12 @@ three-page marketing site does not need a bundler.
 5. **Brand colours are the app's four**, copied into `:root` in `styles.css`
    and not re-picked by eye: Off-White `#F1F1F1`, Champagne `#D9B68C`, Warm
    Sand `#C8BFB1`, Deep Green `#4A5D4E`. Everything else is derived from them.
-6. **No real personal data.** Screenshots must come from a seeded demo
-   property, never the owner's actual house. A public repo preserves a mistake
-   in git history even after the file is replaced.
+6. **No real personal data.** Screenshots show the fictional 14 Alder Street
+   in `tools/screens/make-house.py`, never a real house. **That rules out the
+   app's own "Seed sample data"**: `src/dev/sample-home/sample-home-data.ts` is
+   a real household's Notion export with only the serial numbers changed, which
+   its own header says. A public repo preserves a mistake in git history even
+   after the file is replaced.
 7. Pages are hand-written, kebab-case filenames, and **every page works with
    JavaScript disabled**. There is exactly one script, inlined on each page:
    the theme toggle. It is progressive enhancement and must stay that way —
@@ -72,33 +78,31 @@ three-page marketing site does not need a bundler.
 
 ## Where the artwork comes from
 
-Nothing in `assets/` was drawn here. All of it is generated from, or copied
-out of, the app repository:
+Nothing in `assets/` was drawn by hand. All of it is generated from, or
+copied out of, the app repository:
 
 | File | Source |
 |---|---|
 | `assets/mark.svg` | `assets/images/homecubbie-mark.svg` — the app's mark, unmodified |
 | `assets/app-icon.png`, `assets/favicon.png` | `assets/images/icon.png`, `favicon.png` |
-| `assets/screens/*.png` | rendered from `docs/reference/prototype.html` |
+| `assets/screens/*.png` | captured from the app's web build by `tools/screens/capture-screens.js` |
+| `assets/og.png` | `tools/screens/og.html`, rendered by the same script from the new Now screen |
+| the icons inlined in `index.html` | `src/theme/icons.ts`, path for path (house, key, users, wrench, shield, coin, valve, receipt, scan, cal, search, history, file) |
 | the tokens in `styles.css` | `src/theme/palette.ts` and the prototype's `:root` block |
 
-The screens were produced by driving `docs/reference/prototype.html` in
-headless Chrome: a 390 x 844 viewport in an iframe (Chrome will not open a
-window narrower than 500px, so the phone is an iframe inside a wider window and
-the shot is cropped to it), `themePref` set to `light` and `dark` for the two
-halves of each `--shot-light`/`--shot-dark` pair, and the empty
-`.toast`/`.sheet` scaffolding hidden.
-The content is the fictional sample home — Honda CR-V, LG fridge, 14 Alder
-Street — which is what rule 6 above is asking for.
+The one exception is the sharing diagram in `index.html`, drawn inline as SVG
+from the tokens, because the app has no picture of a house, a server and the
+lines between them.
 
-**These are renders of the prototype, not captures of the shipped app.** The
-prototype is the app's visual target and the two are meant to match, but no
-test checks that they still do, and a marketing image showing a screen the app
-does not have is exactly the kind of overstatement rule 2 exists to stop.
-Before the site goes public, replace `assets/screens/` with real captures from
-a device or simulator running the seeded sample home
-(`src/dev/sample-home/seed-sample-home.ts`) — which is work the App Store
-listing needs anyway.
+**The screens are real captures of the shipped app** (since 2026-11-12), not
+renders of `docs/reference/prototype.html`, which stopped matching the app
+when onboarding was removed and the Handbook became the House manual.
+`tools/screens/README.md` says how to run them. In short: the app's web build
+at 390 x 844 and 2x, a fresh browser profile, the fictional house restored from
+a backup file the way a person restores one, then six screens in each theme.
+The web build is the same code as the phone app; what it lacks is the phone's
+status bar and its exact system fonts. Store screenshots still need a device,
+and that is board #17's work.
 
 ## Claims and where they come from
 
@@ -109,14 +113,29 @@ changed:
 
 | Claim on this site | Where it is true in the app repo |
 |---|---|
-| No network requests of any kind | `src/__tests__/no-network.test.ts` — fails the build on a call, a dependency, or a URL literal |
+| No network unless the household shares, and then only its own server | `src/__tests__/no-network.test.ts` — one file, `src/sync/server-client.ts`, may reach a network; it names no address, only `src/domain/sync/sync-session.ts` imports it, and anything else fails the build |
+| No server of ours; sharing only through the household's own | `docs/decisions.md` §353; `server/README.md` |
+| Encrypted on the phone; the server can't read the house | `docs/reference/sharing-security.md`; `server/__tests__/household-server.test.ts` › "holds nothing anyone could read" |
+| The server answers only the home network | `server/__tests__/home-network.test.ts` (the audit's S-5) |
+| The server contacts nobody | `server/__tests__/no-outgoing-calls.test.ts` |
+| Invites: one use, ten minutes, no password | `server/__tests__/household-server.test.ts`; `docs/decisions.md` §353 |
+| A browser is the one exception to "can't read" | `server/README.md`, "One exception: a browser" |
+| Removing a phone changes the key; keys never in a backup | `docs/reference/sharing-security.md`, "A lost or stolen phone" |
+| Plain http at home, and iOS's local network prompt | `docs/decisions.md` §371; `plugins/with-household-server-cleartext.ts`, `plugins/with-ios-privacy.ts` |
+| Documents come down when first opened, or all on Wi-Fi if asked | `src/app/settings/sharing.tsx`, "Download every document on Wi-Fi" |
+| Bills, plates and documents read on the phone | board #45 (Vision on iOS, Tesseract on Android), #387 (PDFKit, PDFium), #37 |
+| Questions in Search need Apple's on-device model, iPhone only | board #47's commit (`427fcdc`) |
+| "Twice a year", "every fall", "first Saturday of the month" | `src/domain/schedules/schedule-phrase.ts`, the table in its header |
+| Weekly automatic backup, kept on the phone | `docs/reference/backup-format.md`, "Automatic backups" |
+| One Property per install | `docs/reference/context.md` §4 |
 | No analytics or crash reporting | no such dependency in `package.json` |
-| Camera only, never the photo library | `app.json` → `expo-image-picker`, `photosPermission: false` |
+| Camera only, never the photo library | `app.json` → `expo-image-picker`, `photosPermission: false`. The prompt's own sentence says photos are "never sent anywhere", which sharing made false: board #446 |
 | Biometrics ask the OS and store nothing | `expo-local-authentication`; `docs/decisions.md` §158 |
+| A blank app-switcher card while locked | the audit's S-7, commit `bd19a3c` |
 | Local notifications only, no push | `plugins/with-push-disabled.ts`; the `aps-environment` entitlement is removed in `plugins/with-ios-privacy.ts` |
 | Excluded from OS cloud backups | `plugins/with-backups-disabled.ts`; `app.json` → `allowBackup: false` |
 | Strongest iOS file protection | `plugins/with-ios-privacy.ts`, `com.apple.developer.default-data-protection` |
-| Backup export is user-initiated only | `expo-sharing`; `docs/reference/backup-format.md` |
+| A backup file is a plain, unencrypted zip | `docs/reference/backup-format.md` |
 
 **Nothing enforces this table.** The app's documentation is guarded by tests
 that fail the build on drift; this repository is a different repository and no
@@ -125,14 +144,28 @@ page keeps saying it does not, and nothing anywhere notices. So: when the app
 changes what it collects, transmits, or asks permission for, changing this site
 is part of that work, not a follow-up.
 
-The app is not yet on the App Store. The landing page says "Coming to the App
-Store" and links to nothing — replace that with the real link on the day it
-ships, and not before.
+The app is not yet in either store. The landing page says "Coming soon to
+iPhone and Android" and links to no store — replace that with the real links on
+the day it ships, and not before. Store badges are only for an app that is in
+the store.
 
 ## Deploying
 
 Currently a **private** repository with Pages switched off, by intent — the
 site is being written before the app ships.
+
+What homecubbie.com serves today (checked 2026-11-12): Squarespace's default
+"Coming Soon" page. The domain's nameservers are Squarespace's
+(`nsd1`–`nsd4.squarespacedns.com`) and its A records are Squarespace's, so
+nothing from this repository is live. It has **no MX record**, so
+`support@homecubbie.com` cannot receive mail yet.
+
+A GitHub Pages site is always deployed by a GitHub Actions run, even from a
+branch (GitHub's docs and its 2022 post, "GitHub Pages now uses Actions by
+default"). On a public repository those runs are free and unlimited; on a
+private one they spend the account's Actions minutes, and private Pages needs a
+paid plan. The owner wants no Actions runs or charges, so which host serves
+this site is the owner's decision.
 
 To go live: make the repository public (GitHub Pages from a private repo needs
 a paid plan, and the served pages are public either way), then Settings →

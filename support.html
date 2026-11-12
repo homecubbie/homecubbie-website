@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Support — HomeCubbie</title>
-<meta name="description" content="Help with HomeCubbie: how to move to a new phone, how backups work, and how to get in touch.">
+<meta name="description" content="Help with HomeCubbie: sharing a house with your household, moving to a new phone, backups, and how to get in touch.">
 <link rel="canonical" href="https://homecubbie.com/support.html">
 <meta property="og:image" content="https://homecubbie.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,9 +26,11 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
 <div class="shell">
   <header class="masthead">
     <a class="wordmark" href="/"><img src="assets/mark.svg" alt="" width="30" height="30">HomeCubbie</a>
-    <nav>
+    <nav aria-label="Site">
+      <a class="wide" href="/#how">How it works</a>
+      <a class="wide" href="/#sharing">Sharing</a>
       <a href="privacy.html">Privacy</a>
-      <a href="support.html">Support</a>
+      <a href="support.html" aria-current="page">Support</a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.2v2.1M12 19.7v2.1M4.6 4.6l1.5 1.5M17.9 17.9l1.5 1.5M2.2 12h2.1M19.7 12h2.1M4.6 19.4l1.5-1.5M17.9 6.1l1.5-1.5"/></svg>
@@ -40,67 +42,163 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
 <main id="main">
   <div class="shell doc">
 
-    <h1>Support</h1>
-    <p class="doc-meta">Questions, bugs, and requests all go to the same place.</p>
+    <p class="eyebrow">Support</p>
+    <h1>How can we help?</h1>
+    <p class="doc-meta">Questions, bugs and requests all go to the same place.</p>
 
     <section class="callout">
       <p style="margin:0 0 0.5em"><strong>Email
       <a href="mailto:support@homecubbie.com">support@homecubbie.com</a></strong></p>
       <p class="note" style="margin:0">Every message is read by the person who
-      built the app. Including your device model and the app version — Settings,
-      at the bottom — makes a bug much faster to find.</p>
+      built the app. Your device model and the app version — at the bottom of
+      Settings — make a bug much faster to find.</p>
     </section>
 
-    <h2>Common questions</h2>
+    <ul class="toc" aria-label="On this page">
+      <li><a href="#sharing">Sharing</a></li>
+      <li><a href="#phones">New and lost phones</a></li>
+      <li><a href="#backups">Backups</a></li>
+      <li><a href="#everyday">Everyday</a></li>
+      <li><a href="#bugs">Reporting a bug</a></li>
+    </ul>
 
-    <h3>Does HomeCubbie sync between my devices?</h3>
-    <p>No, and it is not planned. Syncing requires a server holding your data,
-    which is the thing HomeCubbie is built to avoid. Your records live on one
-    device.</p>
+    <h2 id="sharing">Sharing with your household</h2>
+    <div class="faq">
+      <details>
+        <summary>Can my household share one house?</summary>
+        <div><p>Yes. Your household runs the HomeCubbie server on a computer at
+        home, and every phone joins it — iPhones and Android phones alike. Each
+        phone keeps its own copy of the house and works offline; changes travel
+        through the server when the phone is on your home Wi-Fi.</p>
+        <p>Everything is encrypted on the phone before it travels, under a key the
+        server never has. HomeCubbie runs no server and is never told yours
+        exists.</p></div>
+      </details>
+      <details>
+        <summary>What do I need to run the server?</summary>
+        <div><p>A computer that stays on at home — a Mac mini, a spare laptop, a
+        NAS — with Node 22.18 or later, or Docker. The server needs nothing else
+        installed and never contacts anyone.</p>
+        <p>Start in the app: <strong>Settings › Sharing</strong> has a setup guide
+        that gives you the command to run, connects this phone to the server, and
+        tests the connection.</p></div>
+      </details>
+      <details>
+        <summary>How does another phone join?</summary>
+        <div><p>From a phone that is already in, make an invite in Settings ›
+        Sharing and type it into the new phone. An invite works once, for ten
+        minutes. There is no password.</p>
+        <p><strong>Nobody from HomeCubbie will ever ask you for an invite or a
+        recovery code.</strong> Anyone who does is not us.</p></div>
+      </details>
+      <details>
+        <summary>Does sharing work away from home?</summary>
+        <div><p>Each phone works anywhere from its own copy. In this version the
+        server answers only your home network, so changes are exchanged when a
+        phone is back on your Wi-Fi. A document another phone added comes down
+        the first time you open it at home, or straight away if the phone is set
+        to download everything.</p></div>
+      </details>
+      <details>
+        <summary>Can I open the house on a computer?</summary>
+        <div><p>Yes, if your household runs the server: it also serves HomeCubbie
+        to a web browser, and a browser joins with an invite like a phone does.
+        On a computer other than the server's own, the browser needs HTTPS, which
+        the setup guide explains.</p></div>
+      </details>
+    </div>
 
-    <h3>How do I move to a new phone?</h3>
-    <p>Export a backup file from Settings on the old phone, get that file to the
-    new phone however you like, install HomeCubbie there, and restore from it.
-    The backup contains everything you have entered.</p>
+    <h2 id="phones">New phones and lost phones</h2>
+    <div class="faq">
+      <details>
+        <summary>How do I move to a new phone?</summary>
+        <div><p><strong>If your household shares:</strong> join from the new phone
+        with an invite, then remove the old phone in Settings › Sharing.</p>
+        <p><strong>If it's just one phone:</strong> save a backup from Settings on
+        the old phone, get the file to the new one however you like, install
+        HomeCubbie there, and restore from it. The backup holds everything you
+        have entered, files included.</p></div>
+      </details>
+      <details>
+        <summary>What happens if I lose my phone?</summary>
+        <div><p><strong>If your household shares</strong>, the house is still on
+        the other phones and the server. Remove the lost phone from another one,
+        and the household's key changes in the same step. If no phone in the
+        household is left, a recovery code made in advance lets a new phone
+        in.</p>
+        <p><strong>If it's just one phone</strong>, restore the backup you saved
+        off it. Without one, the records are gone: HomeCubbie's weekly backup
+        lives on the phone itself, and there is no copy on any server of ours,
+        because there is none. Save a copy somewhere else now and then.</p></div>
+      </details>
+      <details>
+        <summary>Can I use it for more than one property?</summary>
+        <div><p>HomeCubbie keeps one Property per install — one house, all of it,
+        on every phone that shares it.</p></div>
+      </details>
+    </div>
 
-    <h3>What happens if I lose my phone?</h3>
-    <p>If you have a backup file, restore it on the new device. If you do not,
-    the records are gone — there is no copy on a server, because there is no
-    server. This is the honest trade for having no account and no cloud, and it
-    is worth taking a backup now rather than later.</p>
+    <h2 id="backups">Backups</h2>
+    <div class="faq">
+      <details>
+        <summary>Why isn't HomeCubbie in my iCloud or Google backup?</summary>
+        <div><p>On purpose. Automatic operating-system backups would copy alarm
+        codes, policy numbers and account numbers into a cloud account, without
+        anyone deciding to. HomeCubbie opts out on both platforms, and makes its
+        own backup instead.</p></div>
+      </details>
+      <details>
+        <summary>Where is the automatic backup?</summary>
+        <div><p>Out of the box, HomeCubbie writes a backup once a week and keeps
+        the latest ones on the phone. Settings can save a copy anywhere you
+        choose, and restore from any backup file.</p></div>
+      </details>
+      <details>
+        <summary>What is inside a backup file?</summary>
+        <div><p>A plain <code>.zip</code>: a short manifest, one text file per kind
+        of record with one record on each line, and your documents beside them.
+        Any computer can open it. It is not encrypted, so keep it somewhere you
+        would be comfortable keeping your alarm codes.</p></div>
+      </details>
+    </div>
 
-    <h3>Why does it not appear in my iCloud or Google backup?</h3>
-    <p>Deliberately. Automatic operating-system backups would copy alarm codes,
-    policy numbers and account details into a cloud account over the network,
-    which contradicts the one promise the app makes. HomeCubbie opts out on both
-    platforms, so the backup file you export yourself is the way to keep a copy.</p>
+    <h2 id="everyday">Everyday questions</h2>
+    <div class="faq">
+      <details>
+        <summary>Reminders don't appear.</summary>
+        <div><p>Reminders need notification permission from the operating system.
+        Turn it on in your device's Settings under HomeCubbie, and scheduled Tasks
+        will start reminding you again.</p></div>
+      </details>
+      <details>
+        <summary>Is my data encrypted?</summary>
+        <div><p>On iOS, the app's storage uses the strongest file protection the
+        system offers, so it is unreadable whenever the device is locked. You can
+        also lock the app itself behind Face ID, a fingerprint or your passcode —
+        and while it's locked, the app switcher shows a blank card. In a shared
+        house, everything is encrypted on the phone before it travels to your
+        server.</p></div>
+      </details>
+      <details>
+        <summary>Does HomeCubbie send my documents anywhere to be read?</summary>
+        <div><p>No. Bills, serial plates and documents are read on the phone. No
+        third-party service sees them.</p></div>
+      </details>
+    </div>
 
-    <h3>I forgot to allow notifications and now reminders do not appear.</h3>
-    <p>Reminders need notification permission from the operating system. Turn it
-    on in your device's Settings under HomeCubbie, and scheduled Tasks will start
-    surfacing again.</p>
-
-    <h3>Can I use it for more than one property?</h3>
-    <p>The app is built around one Property as the root of everything. If you
-    need more, say so in an email — knowing what people actually want is how the
-    next version gets decided.</p>
-
-    <h3>Is my data encrypted?</h3>
-    <p>On iOS the app's storage is marked for the strongest file-protection
-    class the system offers, so it is encrypted and unreadable whenever the
-    device is locked. You can also require Face ID, Touch ID or your device
-    passcode to open the app at all — see the app lock in Settings.</p>
-
-    <h2>Reporting a bug</h2>
+    <h2 id="bugs">Reporting a bug</h2>
     <p>Useful things to include, in whatever detail you have:</p>
     <ul>
       <li>What you were doing when it happened, step by step if you can.</li>
       <li>What you expected instead.</li>
       <li>Your device model and OS version.</li>
       <li>The app version, shown at the bottom of Settings.</li>
+      <li>Whether your household shares, and if so, whether the server runs in
+      Docker or with Node.</li>
     </ul>
-    <p>Please do not send screenshots containing alarm codes, policy numbers or
-    account numbers. Blur them, or describe the screen instead.</p>
+    <p>Please don't send screenshots showing alarm codes, policy numbers,
+    account numbers, invites or recovery codes. Blur them, or describe the screen
+    instead.</p>
 
   </div>
 </main>
@@ -110,9 +208,10 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
     <div class="foot-grid">
       <div>
         <a class="wordmark" href="/"><img src="assets/mark.svg" alt="" width="30" height="30">HomeCubbie</a>
-        <p class="note">An offline-first home record, for iOS and Android.</p>
+        <p class="note">A home record for iPhone and Android that works offline,
+        has no account, and shares only through a server your household runs.</p>
       </div>
-      <nav>
+      <nav aria-label="Footer">
         <a href="/">Home</a>
         <a href="privacy.html">Privacy policy</a>
         <a href="terms.html">Terms of use</a>
@@ -120,7 +219,8 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
         <a href="mailto:support@homecubbie.com">support@homecubbie.com</a>
       </nav>
     </div>
-    <p class="note">© 2026 HomeCubbie.</p>
+    <p class="note">© 2026 HomeCubbie. This site sets no cookies and makes no
+    third-party requests.</p>
   </footer>
 </div>
 

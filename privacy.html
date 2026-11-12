@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — HomeCubbie</title>
-<meta name="description" content="HomeCubbie collects nothing. No account, no server, no analytics. Everything you enter stays on your device.">
+<meta name="description" content="HomeCubbie collects nothing about you. No account, no server of ours, no analytics. Your records stay on your phone, and a household that shares sends them, encrypted, only to a server it runs itself.">
 <link rel="canonical" href="https://homecubbie.com/privacy.html">
 <meta property="og:image" content="https://homecubbie.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,8 +26,10 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
 <div class="shell">
   <header class="masthead">
     <a class="wordmark" href="/"><img src="assets/mark.svg" alt="" width="30" height="30">HomeCubbie</a>
-    <nav>
-      <a href="privacy.html">Privacy</a>
+    <nav aria-label="Site">
+      <a class="wide" href="/#how">How it works</a>
+      <a class="wide" href="/#sharing">Sharing</a>
+      <a href="privacy.html" aria-current="page">Privacy</a>
       <a href="support.html">Support</a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
@@ -40,103 +42,178 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
 <main id="main">
   <div class="shell doc">
 
+    <p class="eyebrow">Privacy</p>
     <h1>Privacy Policy</h1>
-    <p class="doc-meta">Last updated 31 August 2026. Applies to the HomeCubbie
-    mobile app and this website.</p>
+    <p class="doc-meta">Last updated 12 November 2026. Applies to the HomeCubbie
+    app on iPhone, iPad and Android, to the HomeCubbie household server, and to
+    this website.</p>
 
     <section class="callout">
       <p style="margin:0"><strong>The short version.</strong> HomeCubbie collects
-      nothing about you. There is no account to create, no server to send
-      anything to, and no analytics of any kind. Everything you enter is stored
-      on your own device and never transmitted.</p>
+      nothing about you. There is no account, no server of ours, and no
+      analytics of any kind. Your records stay on your phone. If your household
+      chooses to share, they travel — encrypted on the phone first — only to a
+      server your household runs itself. Nobody at HomeCubbie can see or read
+      them.</p>
     </section>
 
-    <h2>What HomeCubbie stores, and where</h2>
+    <ul class="toc" aria-label="On this page">
+      <li><a href="#stores">What is stored</a></li>
+      <li><a href="#sharing">If your household shares</a></li>
+      <li><a href="#never">Never collected</a></li>
+      <li><a href="#permissions">Permissions</a></li>
+      <li><a href="#reading">Reading documents</a></li>
+      <li><a href="#backups">Backups</a></li>
+      <li><a href="#deleting">Deleting</a></li>
+      <li><a href="#website">This website</a></li>
+    </ul>
+
+    <h2 id="stores">What HomeCubbie stores, and where</h2>
     <p>The app keeps a database file and a documents folder in its own private
     storage on your device. That is where your Property, Places, Things, Tasks,
-    Policies, Events, Notes, People and Accounts live, along with any photos you
-    attach.</p>
-    <p>Nobody but you and the apps you explicitly share a file with can read
-    that storage. The developer cannot. There is no mechanism by which the
-    developer could — no server receives it, and the app makes no network
-    requests.</p>
+    Policies, Events, Notes, People and Accounts live, along with any photos and
+    files you attach.</p>
+    <p>The developer cannot read that storage, and has no way to: nothing is
+    sent to us, and the app has no way to reach us.</p>
 
-    <h2>What is never collected</h2>
+    <h2 id="sharing">If your household shares</h2>
+    <p>Sharing is off unless your household turns it on. <strong>Just this
+    phone</strong> is the default, and in that mode the app makes no network
+    requests at all.</p>
+    <p>A household that shares runs the HomeCubbie server on a computer of its
+    own, at home. Every phone that joins sends its changes there, and picks up
+    everyone else's.</p>
+    <h3>What goes to the server, and what it can see</h3>
+    <ul class="plain">
+      <li><strong>Everything is encrypted on the phone before it leaves</strong>:
+      every change, every copy of the house, every document and photo, and each
+      phone's name. The key that opens it stays on your household's phones; the
+      server never has it. The server stores the house without being able to read
+      it.</li>
+      <li>What the server and your home network can see is which phones connect,
+      when, and how much they send.</li>
+      <li>Phones reach the server over plain <code>http</code> on your home
+      network. Because everything inside is already encrypted, and every request
+      and reply is proven with a key neither side sends, this shows someone on
+      your Wi-Fi the traffic, not the house.</li>
+      <li>The only identifier sharing uses is a random one each phone makes for
+      itself. It goes to your household's server and nowhere else.</li>
+    </ul>
+    <h3>Where the server is, and who runs it</h3>
+    <ul class="plain">
+      <li>The server runs on your household's computer. HomeCubbie does not host
+      it, cannot reach it, and is never told it exists.</li>
+      <li>It answers only this computer and your home network, and closes any
+      connection from elsewhere.</li>
+      <li>It contacts nobody: no update check, no telemetry, no time server.</li>
+    </ul>
+    <h3>One thing to know about browsers</h3>
+    <p>If your household opens the house in a web browser, the server also
+    serves the HomeCubbie web app to that browser. Someone who took over the
+    server's computer could change that page, and read the house the next time
+    the browser opened it. Phones are not exposed to this, because their app
+    comes from the App Store or Google Play. Keep the server's computer as safe
+    as you keep your phones.</p>
+    <h3>Leaving, and lost phones</h3>
+    <p>Any phone in the household can remove another — a lost one, say — and the
+    key changes in the same step, so the removed phone can read nothing sent
+    after. A phone's keys are kept in the device's secure storage, on that
+    device only, and never in a backup.</p>
+
+    <h2 id="never">What is never collected</h2>
     <ul class="plain">
       <li><strong>Personal information.</strong> No name, email address, phone
-      number, or postal address is requested or transmitted.</li>
+      number or postal address is asked for or sent to us.</li>
       <li><strong>Usage and analytics data.</strong> No screen views, no session
       counts, no feature tracking, no crash reports.</li>
       <li><strong>Identifiers.</strong> No advertising identifier, no device
       identifier, no cookies in the app.</li>
-      <li><strong>Location.</strong> The app does not request location access.</li>
+      <li><strong>Where you are.</strong> The app never asks where your phone is.</li>
       <li><strong>Contacts, calendars, health data, or your photo library.</strong>
-      None of these are requested.</li>
+      None of these are asked for.</li>
     </ul>
-    <p>Because nothing is collected, there is nothing to sell, share, or hand to
+    <p>Because nothing is collected, there is nothing to sell, share or hand to
     a third party, and no data broker relationship exists.</p>
 
-    <h2>Permissions the app asks for, and why</h2>
+    <h2 id="permissions">Permissions the app asks for, and why</h2>
 
     <h3>Camera</h3>
-    <p>Only if you choose to photograph a document or a serial plate. Images are
-    written to the app's private storage on your device. The photo library
-    itself is not accessed.</p>
+    <p>Only if you choose to photograph a document, a bill or a serial plate.
+    The photo is kept in the app's private storage; in a shared house it also
+    goes, encrypted, to your household's other phones. The photo library itself
+    is never opened.</p>
 
-    <h3>Face ID, Touch ID, or device biometrics</h3>
+    <h3>Face ID, Touch ID, or the phone's fingerprint or face unlock</h3>
     <p>Only if you turn on the app lock. HomeCubbie asks the operating system
-    whether the person holding the phone is the one enrolled on it, and receives
-    a yes or a no. No biometric data is ever seen, received, or stored by the
-    app — it never leaves the secure hardware on your device.</p>
+    whether the person holding the phone is the one enrolled on it, and gets a
+    yes or a no. The app never sees, receives or stores biometric data — it
+    never leaves the secure hardware on your device.</p>
 
     <h3>Notifications</h3>
-    <p>Only if you allow reminders. These are local notifications scheduled with
-    your device's operating system. HomeCubbie sends no push notifications and
-    has no capability to; there is no push server, and the remote-push
-    entitlement is deliberately removed from the shipped app.</p>
+    <p>Only if you allow reminders. These are local notifications scheduled on
+    your device. HomeCubbie sends no push notifications and cannot: there is no
+    push server, and the remote-push capability is removed from the app.</p>
 
-    <h2>Backups you create</h2>
-    <p>HomeCubbie can export a backup file containing your data and pass it to
-    your device's share sheet. You choose the destination — another app, a file
-    on the device, a cloud drive of your own. Once you send that file somewhere,
-    the privacy policy of wherever you sent it applies to it, so choose a
-    destination you trust.</p>
-    <p>This is the only way data leaves the app, and it happens only when you
-    ask for it.</p>
+    <h3>Local network (iPhone and iPad)</h3>
+    <p>Only if your household shares. iOS asks whether HomeCubbie may use the
+    local network the first time it connects to your household's server. On
+    Android, network access is granted without a prompt; the app uses it only to
+    reach your household's server.</p>
 
-    <h2>Automatic operating-system backups are switched off</h2>
+    <h2 id="reading">Reading bills, serial plates and documents</h2>
+    <p>When HomeCubbie reads a bill, a serial plate or a document, it does so on
+    the phone, with the operating system's own text recognition on iPhone and a
+    text-recognition engine built into the app on Android. On iPhones that have
+    Apple's on-device model, Search can answer a question from your records
+    with that model, on the phone. Nothing is sent anywhere to be read, and no
+    third-party service is involved.</p>
+
+    <h2 id="backups">Backups</h2>
+    <p>HomeCubbie can write a backup file of everything you have entered. Out of
+    the box it does so weekly and keeps the file on the phone, and you can save
+    a copy wherever you choose — another app, a file on the device, a cloud
+    drive of your own. Once you send a file somewhere, the privacy policy of
+    wherever you sent it applies to it, so choose a place you trust.</p>
+    <p><strong>A backup file is not encrypted.</strong> Anyone who opens it can
+    read what is in it, including alarm codes and policy numbers.</p>
+
+    <h3>Automatic operating-system backups are switched off</h3>
     <p>By default, mobile operating systems copy an app's private storage into
-    the user's cloud backup. HomeCubbie deliberately opts out on both platforms,
-    so your records are not swept into a cloud account without your asking. On
-    iOS the app's data is additionally marked for the strongest file-protection
-    class available, meaning it is encrypted and unreadable whenever the device
-    is locked.</p>
+    the user's cloud backup. HomeCubbie opts out on both platforms, so your
+    records are not swept into a cloud account without your asking. On iOS the
+    app's data is also marked for the strongest file-protection class
+    available, so it is encrypted and unreadable whenever the device is
+    locked.</p>
 
-    <h2>Deleting your data</h2>
-    <p>Delete an entry inside the app, or delete the app to remove everything at
-    once. Because nothing was ever transmitted, there is no copy elsewhere to
-    request the deletion of, and no account to close.</p>
+    <h2 id="deleting">Deleting your data</h2>
+    <p>Delete an entry inside the app, or delete the app to remove everything on
+    that phone at once. If your household shares, the house stays on the other
+    phones and on your server until your household deletes it there — the
+    server's data is a folder on your own computer. There is no copy anywhere
+    else to ask us to delete, and no account to close.</p>
 
     <h2>Children</h2>
     <p>HomeCubbie is not directed at children and collects no personal
     information from anyone, of any age.</p>
 
-    <h2>This website</h2>
+    <h2 id="website">This website</h2>
     <p>homecubbie.com is a set of static pages. It sets no cookies, runs no
-    analytics, and loads no third-party fonts, scripts, or embeds — the one
-    typeface it uses is served from this site itself.</p>
+    analytics, and loads no third-party fonts, scripts or embeds — the one
+    typeface it uses is served from this site itself. The only thing it stores
+    in your browser is your choice of light or dark, if you make one.</p>
     <p>The site is hosted on GitHub Pages. Like any web host, GitHub receives
-    your IP address and browser user-agent in the ordinary course of serving a
-    page to you, and this is governed by
-    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub's privacy statement</a>.
-    Nothing further is recorded, and no visitor information reaches the
+    your IP address and browser details in the ordinary course of serving a
+    page to you, which
+    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub's privacy statement</a>
+    covers. Nothing further is recorded, and no visitor information reaches the
     developer.</p>
 
     <h2>Changes to this policy</h2>
     <p>If this policy changes, the date at the top of the page changes with it.
-    Any change that would alter what the app collects would first require the
-    app itself to change, and the guarantee above is enforced by the app's own
-    automated tests, not merely stated here.</p>
+    A change to what the app sends would first need the app itself to change,
+    and its network rule is enforced by the app's own automated tests: exactly
+    one part of the app may reach a network, it talks only to your household's
+    server, and the build fails if anything else is added.</p>
 
     <h2>Contact</h2>
     <p>Questions about this policy, or about anything else:
@@ -150,9 +227,10 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
     <div class="foot-grid">
       <div>
         <a class="wordmark" href="/"><img src="assets/mark.svg" alt="" width="30" height="30">HomeCubbie</a>
-        <p class="note">An offline-first home record, for iOS and Android.</p>
+        <p class="note">A home record for iPhone and Android that works offline,
+        has no account, and shares only through a server your household runs.</p>
       </div>
-      <nav>
+      <nav aria-label="Footer">
         <a href="/">Home</a>
         <a href="privacy.html">Privacy policy</a>
         <a href="terms.html">Terms of use</a>
@@ -160,7 +238,8 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
         <a href="mailto:support@homecubbie.com">support@homecubbie.com</a>
       </nav>
     </div>
-    <p class="note">© 2026 HomeCubbie.</p>
+    <p class="note">© 2026 HomeCubbie. This site sets no cookies and makes no
+    third-party requests.</p>
   </footer>
 </div>
 
