@@ -52,6 +52,12 @@ it out.
   turned a row down, and the restore changed nothing. The rules are in the
   app's `src/db/migrations`. The first run found one: a Policy must have a
   provider.
+- **It prints errors the app logged.** The web build runs in development, so
+  an error shows as a red toast over the tab bar. The script closes it before
+  each screenshot, because a release build has no such overlay, and prints
+  every error at the end. Report them to the app. The first was board #450's
+  ring, which hands an SVG group `origin`, which the web turns into an invalid
+  `transform-origin` attribute.
 - **A click times out.** A screen was renamed. The `SCREENS` list in
   `capture-screens.js` names the text it clicks: Kitchen, Fridge, Car insurance.
 - **Now looks different.** Due dates come from each schedule's start date in

@@ -127,11 +127,22 @@ changed:
 | Questions in Search need Apple's on-device model, iPhone only | board #47's commit (`427fcdc`) |
 | "Twice a year", "every fall", "first Saturday of the month" | `src/domain/schedules/schedule-phrase.ts`, the table in its header |
 | Weekly automatic backup, kept on the phone | `docs/reference/backup-format.md`, "Automatic backups" |
+| On Android, a folder picked once gets every automatic backup and the readable copy; "Stop copying" ends it | `docs/decisions.md` §374, §379; `src/backup/backup-file.ts` `canKeepBackupFolder` (Android only); `src/app/settings/backup.tsx` |
+| The readable copy leaves out "Hidden until tapped" | `docs/decisions.md` §379; `docs/reference/backup-format.md`, "The readable copy of the house" |
 | One Property per install | `docs/reference/context.md` §4 |
+| A ring per room and for the house: what came due in the last 30 days, open while anything is late | `docs/decisions.md` §381; `src/domain/queries/kept-up.ts` |
+| "More than 250" common tasks, suggested by room, each with a schedule and a time estimate; nothing added until you say so | `src/domain/tasks/task-library.ts` (`LIBRARY_TASKS`, 277 on 2026-11-12), `src/domain/tasks/task-suggestions.ts`; the sheet's own sentence |
+| "It looks like…" suggests a Policy, bill, receipt or manual, and says why | board #45; `src/domain/queries/scan-triage-view.ts` `SCAN_KINDS` |
+| Renewal reminders | `src/domain/reminders/reminder-plan.ts`: a policy term reminds twice before it ends |
+| People: call from the app, copy the email | `src/components/call-sheet.tsx`; `src/app/records/person/[id].tsx` (email is a copy row, not a compose link) |
+| A year in review | `src/app/records/year/[year].tsx` (board #219, #358) |
+| A deleted document comes back for 30 days | board #355, Settings › Recently deleted |
+| iOS 16.4 or later; Android 7.0 or later | the Expo template's `ios.deploymentTarget` default `16.4` (`node_modules/expo/template.tgz`, Podfile); Android `minSdk` default 24 |
 | No analytics or crash reporting | no such dependency in `package.json` |
-| Camera only, never the photo library | `app.json` → `expo-image-picker`, `photosPermission: false`. The prompt's own sentence says photos are "never sent anywhere", which sharing made false: board #446 |
+| Camera only, never the photo library | `app.json` → `expo-image-picker`, `photosPermission: false`. Its prompt says photos go only to the household's own server, locked, and nothing to us: board #446, `e403ee41` |
+| Files shared in from other apps stay on the phone, with no new permission | `plugins/with-share-target.ts` (Android), `plugins/with-share-extension.ts` (iPhone, "sends nothing"); `docs/decisions.md` §378, §380 |
 | Biometrics ask the OS and store nothing | `expo-local-authentication`; `docs/decisions.md` §158 |
-| A blank app-switcher card while locked | the audit's S-7, commit `bd19a3c` |
+| While locked, the app switcher hides the screen: a full blur on iPhone, blank on Android 13 or later | the audit's S-7, commit `bd19a3c` (`expo-screen-capture` on iOS, `modules/recents-screenshot` on Android 13+) |
 | Local notifications only, no push | `plugins/with-push-disabled.ts`; the `aps-environment` entitlement is removed in `plugins/with-ios-privacy.ts` |
 | Excluded from OS cloud backups | `plugins/with-backups-disabled.ts`; `app.json` → `allowBackup: false` |
 | Strongest iOS file protection | `plugins/with-ios-privacy.ts`, `com.apple.developer.default-data-protection` |

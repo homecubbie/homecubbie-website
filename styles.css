@@ -353,6 +353,13 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 .section-head p { color: var(--muted); font-size: 1.125rem; margin-bottom: 0; }
 .section-head.center { margin-left: auto; margin-right: auto; }
 
+/* getting started: one feature row standing as its own section */
+.start { padding-top: 0; }
+.start .feature { padding: 0; }
+.start h2 { margin-bottom: 0.6em; }
+.start p { color: var(--muted); }
+.start p strong { color: var(--ink); }
+
 /* a full-bleed panel that changes the page's tone for one section */
 .panel { background: var(--linen); }
 
@@ -401,6 +408,10 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
   border: 1px solid var(--rule);
   border-radius: var(--r-lg);
   padding: var(--s5);
+}
+
+@media (min-width: 900px) {
+  .cards.three { grid-template-columns: repeat(3, 1fr); }
 }
 
 .card .glyph { margin-bottom: var(--s4); }
@@ -475,6 +486,20 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 
 .default-note p { margin: 0; max-width: none; }
 .default-note strong { color: var(--ink); }
+
+/* ---------- also in the box ---------- */
+
+.box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  gap: var(--s6) var(--s5);
+}
+
+.box .item { display: grid; grid-template-columns: auto 1fr; gap: var(--s4); align-items: start; }
+.box .glyph { grid-row: auto; width: 40px; height: 40px; }
+.box .glyph svg { width: 20px; height: 20px; }
+.box h3 { font-size: 1.0625rem; margin: 0.1rem 0 0.3rem; }
+.box p { font-size: 0.9375rem; color: var(--muted); margin: 0; }
 
 /* ---------- the pledge band ---------- */
 

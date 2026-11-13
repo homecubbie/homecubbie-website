@@ -24,6 +24,9 @@ const SCREENS = [
   ["policy", [["goto", "/records/policies"], ["click", "Car insurance"]]],
   ["costs", [["goto", "/costs"]]],
   ["house", [["goto", "/home/about"]]],
+  ["place", [["goto", "/home"], ["click", "Kitchen"]]],
+  ["suggest", [["goto", "/home"], ["click", "Kitchen"], ["click", "Add here"], ["click", "Task in Kitchen"],
+    ["click", "Common tasks for the Kitchen"], ["click", "Empty the toaster crumb tray"], ["click", "Sharpen knives"]]],
 ];
 
 async function open(profile, scheme) {
@@ -70,8 +73,16 @@ async function go(page, route) {
   await ctx.close();
 
   // 4. Six screens, light and dark.
+  //
+  // The web build runs in development, so an error the app logs shows as a
+  // red toast over the tab bar. A release build has no such overlay, so it is
+  // closed before each screenshot -- and every error is printed at the end,
+  // so closing it never hides one. Report what it prints to the app.
+  const logged = new Set();
   for (const scheme of ["light", "dark"]) {
     [ctx, page] = await open(profile, scheme);
+    page.on("console", (m) => { if (m.type() === "error") logged.add(m.text().slice(0, 300)); });
+    page.on("pageerror", (e) => logged.add(String(e).slice(0, 300)));
     for (const [name, steps] of SCREENS) {
       for (const [op, arg] of steps) {
         if (op === "goto") await go(page, arg);
@@ -79,6 +90,10 @@ async function go(page, route) {
       }
       await page.mouse.move(0, 0);
       await page.waitForTimeout(600);
+      const overlay = page.locator('[class*="_toast"] [class*="_dismissButton"]');
+      while (await overlay.count()) { await overlay.first().click(); await page.waitForTimeout(300); }
+      await page.mouse.move(0, 0);
+      await page.waitForTimeout(300);
       const file = path.join(SITE, "assets/screens", `${name}-${scheme}.png`);
       await page.screenshot({ path: file });
       console.log("wrote", path.relative(SITE, file));
@@ -94,6 +109,11 @@ async function go(page, route) {
   await og.screenshot({ path: path.join(SITE, "assets/og.png") });
   await browser.close();
   console.log("wrote assets/og.png");
+
+  if (logged.size) {
+    console.log("\nThe app logged these errors while the screens were captured (not shown in them):");
+    for (const line of logged) console.log("  - " + line);
+  }
 
   fs.rmSync(work, { recursive: true, force: true });
 })().catch((e) => { console.error(e); process.exit(1); });
