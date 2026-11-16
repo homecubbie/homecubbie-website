@@ -211,7 +211,13 @@ bills(tax, county, [298000, 298000, 315000, 315000], (2025, 1), 6)
 cats = {name: add("category", {"id": U(), "name": name, **TS, "household_id": None, "parent_category_id": None, **P})
         for name in ["Safety", "Heating and cooling", "Appliance care", "Outside", "Car"]}
 
+# The tasks' dates are written as they stood on 12 November 2026, when Now
+# showed two late, two today and a handful this week. They move by the days
+# since, so a capture on any day shows the same Now.
+SHIFT_DAYS = date.today().toordinal() - date(2026, 11, 12).toordinal()
+
 def task(name, type_, cat, anchor, months, asset=None, loc=None, minutes=None, cost=None, safety=0):
+    anchor = date.fromordinal(date.fromisoformat(anchor).toordinal() + SHIFT_DAYS).isoformat()
     tid = add("task_definition", {"id": U(), "name": name, "description": None, "type": type_,
                                   "category_id": cats[cat], "estimated_minutes": minutes, "instructions": None, **TS,
                                   "household_id": None, **P, "expected_cost_cents": cost, "safety_critical": safety})

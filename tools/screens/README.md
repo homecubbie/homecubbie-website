@@ -59,6 +59,7 @@ goes on the site.
 - **A click times out.** A screen was renamed. The `SCREENS` list in
   `capture-screens.js` names the text it clicks: Kitchen, Fridge, Car insurance.
 - **Now looks different.** Due dates come from each schedule's start date in
-  `make-house.py`, and the app works out what's due from today's date. Move
-  the start dates so Now shows a couple of things today and a handful this
-  week.
+  `make-house.py`, which moves them by the days since 12 November 2026, so
+  Now shows the same two late, two today and a handful this week on any day.
+  If Now still looks wrong, the app's rules for what's due have changed:
+  move the start dates written there.

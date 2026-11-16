@@ -50,7 +50,7 @@ async function go(page, route) {
   await go(page, "/");
   await go(page, "/settings/backup");
   const download = page.waitForEvent("download", { timeout: 60000 });
-  await page.getByText("Create a backup now", { exact: true }).click();
+  await page.getByText("Back up now", { exact: true }).click();
   const template = path.join(work, "template.zip");
   await (await download).saveAs(template);
   fs.mkdirSync(path.join(work, "template"));
@@ -69,7 +69,7 @@ async function go(page, route) {
   await page.getByText("Replace my data", { exact: true }).last().click();
   await page.waitForTimeout(8000);
   const restored = await page.evaluate(() => document.body.innerText);
-  if (!/rows are back/.test(restored)) throw new Error("The restore did not finish:\n" + restored.slice(0, 800));
+  if (!/14 Alder Street is back/.test(restored)) throw new Error("The restore did not finish:\n" + restored.slice(0, 800));
   await ctx.close();
 
   // 4. Six screens, light and dark.
