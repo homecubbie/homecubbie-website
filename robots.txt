@@ -1,0 +1,7 @@
+# homecubbie.com is four public pages, and every crawler is welcome to them:
+# search engines, the assistants' search crawlers, and the crawlers that train
+# models, so that an assistant can name HomeCubbie without having to look it up.
+User-agent: *
+Allow: /
+
+Sitemap: https://homecubbie.com/sitemap.xml
