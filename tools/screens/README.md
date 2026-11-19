@@ -41,6 +41,13 @@ goes on the site.
    - six screens are captured in light and in dark, at 390 x 844 and 2x;
    - `og.html` is rendered to `assets/og.png`.
 
+   When only the mark in `og.png` has changed, `--og-only` renders it again
+   from the screens already in `assets/screens`. It needs no running app:
+
+   ```sh
+   node tools/screens/capture-screens.js --og-only
+   ```
+
 3. Stop the web server, then check the site in a browser in both themes before
    committing.
 

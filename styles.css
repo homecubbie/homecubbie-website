@@ -177,6 +177,20 @@ strong { font-weight: 600; }
 
 .wordmark img { width: 30px; height: 30px; display: block; }
 
+/* The mark is two colours, and an image cannot be recoloured from here or see
+   the toggle. So each page carries the mark for a light page and the mark for
+   a dark one, and these rules show one, the way .screen chooses its
+   screenshot. */
+.wordmark .mark-dark { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .wordmark .mark-light { display: none; }
+  :root:not([data-theme="light"]) .wordmark .mark-dark { display: block; }
+}
+
+:root[data-theme="dark"] .wordmark .mark-light { display: none; }
+:root[data-theme="dark"] .wordmark .mark-dark { display: block; }
+
 .masthead nav { display: flex; align-items: center; gap: var(--s5); font-size: 0.9375rem; }
 .masthead nav a { color: var(--muted); text-decoration: none; white-space: nowrap; }
 .masthead nav a:hover { color: var(--ink); }

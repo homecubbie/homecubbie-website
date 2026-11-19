@@ -2,8 +2,11 @@
 // the fictional house in make-house.py. See README.md for when and how.
 //
 //   node tools/screens/capture-screens.js [path-to-app-repo] [base-url]
+//   node tools/screens/capture-screens.js --og-only [path-to-app-repo]
 //
 // Defaults: ../HomeCubbie beside this repository, http://localhost:8090.
+// --og-only renders assets/og.png again from the screens already here, for
+// when only the mark it shows has changed. It needs no running app.
 // Uses a fresh browser profile each run, so nothing of anyone's real house
 // can be in it: the app starts empty, writes one backup (the template for the
 // table list and schema version), and is then restored from the fictional one.
@@ -13,8 +16,10 @@ const os = require("node:os");
 const path = require("node:path");
 
 const SITE = path.resolve(__dirname, "../..");
-const APP = path.resolve(process.argv[2] || path.join(SITE, "../HomeCubbie"));
-const BASE = process.argv[3] || "http://localhost:8090";
+const ARGS = process.argv.slice(2).filter((arg) => !arg.startsWith("--"));
+const OG_ONLY = process.argv.includes("--og-only");
+const APP = path.resolve(ARGS[0] || path.join(SITE, "../HomeCubbie"));
+const BASE = ARGS[1] || "http://localhost:8090";
 const { chromium } = require(path.join(APP, "node_modules/playwright"));
 
 const SCREENS = [
@@ -41,7 +46,20 @@ async function go(page, route) {
   await page.waitForTimeout(2500);
 }
 
+// The link preview, built from the Now screen in assets/screens.
+async function linkPreview() {
+  const browser = await chromium.launch();
+  const og = await browser.newPage({ viewport: { width: 1200, height: 630 } });
+  await og.goto("file://" + path.join(__dirname, "og.html"));
+  await og.waitForTimeout(800);
+  await og.screenshot({ path: path.join(SITE, "assets/og.png") });
+  await browser.close();
+  console.log("wrote assets/og.png");
+}
+
 (async () => {
+  if (OG_ONLY) return linkPreview();
+
   const work = fs.mkdtempSync(path.join(os.tmpdir(), "hc-screens-"));
   const profile = path.join(work, "profile");
   let [ctx, page] = await open(profile, "light");
@@ -102,13 +120,7 @@ async function go(page, route) {
   }
 
   // 5. The link preview, built from the new Now screen.
-  const browser = await chromium.launch();
-  const og = await browser.newPage({ viewport: { width: 1200, height: 630 } });
-  await og.goto("file://" + path.join(__dirname, "og.html"));
-  await og.waitForTimeout(800);
-  await og.screenshot({ path: path.join(SITE, "assets/og.png") });
-  await browser.close();
-  console.log("wrote assets/og.png");
+  await linkPreview();
 
   if (logged.size) {
     console.log("\nThe app logged these errors while the screens were captured (not shown in them):");
