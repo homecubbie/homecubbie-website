@@ -44,9 +44,9 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
 
     <p class="eyebrow">Privacy</p>
     <h1>Privacy Policy</h1>
-    <p class="doc-meta">Last updated 18 November 2026. Applies to the HomeCubbie
-    app on iPhone, iPad and Android, to the HomeCubbie household server, and to
-    the website homecubbie.com.</p>
+    <p class="doc-meta">Last updated 22 November 2026. Applies to the HomeCubbie
+    app on iPhone, iPad and Android, to HomeCubbie for Mac, to the HomeCubbie
+    household server, and to the website homecubbie.com.</p>
 
     <section class="callout">
       <p style="margin:0"><strong>The short version.</strong> HomeCubbie collects
@@ -111,7 +111,17 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
     GitHub's container registry, where its code is published. Like any
     download, they receive your IP address in doing so, under their own
     privacy statements. All the developer can see is how many times it was
-    downloaded, never by whom.</p>
+    downloaded, never by whom. It also comes inside HomeCubbie for Mac.</p>
+    <h3>HomeCubbie for Mac</h3>
+    <p>HomeCubbie for Mac is the household server in an app, with a window that
+    shows the house. Your household's phones connect to it on your home
+    network, and it contacts nobody. On another network it answers only the
+    Mac itself. It tells home from away by your router's hardware address,
+    which stays on the Mac.</p>
+    <p>The shared copy it keeps is encrypted, as on any server. If you open the
+    house in its window, the Mac also keeps a copy that isn't, so anyone
+    using that Mac's account can read it. A backup of that Mac, such as Time
+    Machine, can include both copies.</p>
     <h3>One thing to know about browsers</h3>
     <p>If your household opens the house in a web browser, the server also
     serves the HomeCubbie web app to that browser. Someone who took over the
@@ -170,6 +180,11 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
     address you give it. On older Android, network access is granted without a
     prompt.</p>
 
+    <h3>Opening when a Mac starts</h3>
+    <p>HomeCubbie for Mac asks once whether to open when the Mac starts, and
+    opens by itself only if you say yes. macOS may also ask whether it can
+    accept incoming connections, which is how the phones reach it.</p>
+
     <h2 id="reading">Reading bills, serial plates and documents</h2>
     <p>When HomeCubbie reads a bill, a serial plate or a document, it does so on
     the phone, with the operating system's own text recognition on iPhone and a
@@ -217,7 +232,7 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
 
     <h3>Automatic operating-system backups are switched off</h3>
     <p>By default, mobile operating systems copy an app's private storage into
-    the user's cloud backup. HomeCubbie opts out on both platforms, so your
+    the user's cloud backup. HomeCubbie opts out on iPhone and Android, so your
     records are not swept into a cloud account without your asking. On iOS the
     app's data is also marked for the strongest file-protection class
     available, so it is encrypted and unreadable whenever the device is
@@ -227,7 +242,9 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
     <p>Delete an entry inside the app, or delete the app to remove everything on
     that phone at once. If your household shares, the house stays on the other
     phones and on your server until your household deletes it there — the
-    server's data is a folder on your own computer. Backups and readable copies
+    server's data is a folder on your own computer. On a Mac, deleting
+    HomeCubbie for Mac can leave its data behind, in that Mac's Library ›
+    Containers folder, until you delete it there. Backups and readable copies
     you saved somewhere else stay there until you delete them. There is no copy
     anywhere else to ask us to delete, and no account to close.</p>
 
