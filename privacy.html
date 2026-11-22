@@ -108,20 +108,35 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
       <li>It contacts nobody: no update check, no telemetry, no time server.</li>
     </ul>
     <p><strong>Getting the server.</strong> It is downloaded from npm or from
-    GitHub's container registry, where its code is published. Like any
-    download, they receive your IP address in doing so, under their own
-    privacy statements. All the developer can see is how many times it was
-    downloaded, never by whom. It also comes inside HomeCubbie for Mac.</p>
+    GitHub's container registry, where its code is published, or comes inside
+    HomeCubbie for Mac, from the Mac App Store. Like any download, they receive
+    your IP address in doing so, under their own privacy statements. All the
+    developer can see is how many times it was downloaded, never by whom.</p>
     <h3>HomeCubbie for Mac</h3>
-    <p>HomeCubbie for Mac is the household server in an app, with a window that
-    shows the house. Your household's phones connect to it on your home
-    network, and it contacts nobody. On another network it answers only the
-    Mac itself. It tells home from away by your router's hardware address,
-    which stays on the Mac.</p>
-    <p>The shared copy it keeps is encrypted, as on any server. If you open the
-    house in its window, the Mac also keeps a copy that isn't, so anyone
-    using that Mac's account can read it. A backup of that Mac, such as Time
-    Machine, can include both copies.</p>
+    <p>HomeCubbie for Mac runs your household's server on a Mac at home, so
+    everything above about sharing applies to it. It connects to nothing on the
+    internet. It answers this Mac and your home network, and only this Mac when
+    it's away from home.</p>
+    <p><strong>What it keeps.</strong> Your household's shared copy, which the
+    server can't read, the Mac's name, where its window was, and your home
+    router's hardware address, which is how it knows it's at home. They stay in
+    the app's own folder on that Mac, except that your household's phones use
+    the Mac's name to find it.</p>
+    <p><strong>If you open the house on the Mac,</strong> the window keeps a
+    readable copy of the house, and its key, in the same folder. Anyone who uses
+    that Mac account, or copies its disk, could read it until you sign out in
+    Settings › This Mac. A backup of that Mac, such as Time Machine, can include
+    both copies.</p>
+    <p><strong>What it asks.</strong> Once, whether to open when the Mac starts.
+    macOS may also ask about incoming connections or your local network: that's
+    the phones reaching the Mac, and the Mac checking for your router. It
+    doesn't use the camera, the microphone or your contacts, and it never asks
+    where the Mac is.</p>
+    <p><strong>Deleting.</strong> Deleting the app leaves its folder behind. To
+    remove everything, quit HomeCubbie, delete the app, then delete the folder
+    com.homecubbie.mac, which Finder may show as HomeCubbie, from Library ›
+    Containers. "Start over on this Mac" keeps
+    the household's old copy, renamed, in that folder.</p>
     <h3>One thing to know about browsers</h3>
     <p>If your household opens the house in a web browser, the server also
     serves the HomeCubbie web app to that browser. Someone who took over the
@@ -149,6 +164,11 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
     </ul>
     <p>Because nothing is collected, there is nothing to sell, share or hand to
     a third party, and no data broker relationship exists.</p>
+    <p>Apple and Google give every developer their own store figures, such as
+    how many times an app was downloaded. If your device's settings share crash
+    and usage reports with them or with app developers, some of those figures
+    come from there. They don't name you, HomeCubbie doesn't send them, and you
+    can turn them off in those settings.</p>
 
     <h2 id="permissions">Permissions the app asks for, and why</h2>
 
@@ -179,11 +199,6 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
     permission also covers Bluetooth; HomeCubbie only connects to the server
     address you give it. On older Android, network access is granted without a
     prompt.</p>
-
-    <h3>Opening when a Mac starts</h3>
-    <p>HomeCubbie for Mac asks once whether to open when the Mac starts, and
-    opens by itself only if you say yes. macOS may also ask whether it can
-    accept incoming connections, which is how the phones reach it.</p>
 
     <h2 id="reading">Reading bills, serial plates and documents</h2>
     <p>When HomeCubbie reads a bill, a serial plate or a document, it does so on
@@ -243,8 +258,8 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
     that phone at once. If your household shares, the house stays on the other
     phones and on your server until your household deletes it there — the
     server's data is a folder on your own computer. On a Mac, deleting
-    HomeCubbie for Mac can leave its data behind, in that Mac's Library ›
-    Containers folder, until you delete it there. Backups and readable copies
+    HomeCubbie for Mac leaves its folder behind; "HomeCubbie for Mac" above says
+    how to remove it. Backups and readable copies
     you saved somewhere else stay there until you delete them. There is no copy
     anywhere else to ask us to delete, and no account to close.</p>
 
