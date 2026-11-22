@@ -23,6 +23,19 @@ NOW = "2026-11-01T15:00:00.000Z"
 U = lambda: str(uuid.uuid4())
 TS = {"created_at": NOW, "updated_at": NOW, "deleted_at": None}
 
+# The house is written as it stood on 12 November 2026. Its tasks, its policies
+# and what is due move by the days since, and its bills by the months since, so
+# a capture on any day shows the same house: nothing late, two tasks due today,
+# a handful this week, a bill due in three days and no cover run out.
+WRITTEN = date(2026, 11, 12)
+TODAY = date.today()
+SHIFT_DAYS = TODAY.toordinal() - WRITTEN.toordinal()
+SHIFT_MONTHS = (TODAY.year - WRITTEN.year) * 12 + TODAY.month - WRITTEN.month
+
+def moved(day):
+    """A date as written, moved by the days since."""
+    return date.fromordinal(date.fromisoformat(day).toordinal() + SHIFT_DAYS).isoformat()
+
 rows = {}
 def add(table, row):
     rows.setdefault(table, []).append(row)
@@ -99,7 +112,7 @@ def policy(kind, provider, name=None, asset=None, prop=None, terms=(), fields=()
     for starts, ends, cost, period in terms:
         term_ids.append(U())
     for i, (starts, ends, cost, period) in enumerate(terms):
-        add("policy_term", {"id": term_ids[i], "policy_id": pid, "starts_on": starts, "ends_on": ends,
+        add("policy_term", {"id": term_ids[i], "policy_id": pid, "starts_on": moved(starts), "ends_on": moved(ends),
                             "cost_cents": cost, "cost_period": period,
                             "superseded_by": term_ids[i + 1] if i + 1 < len(term_ids) else None,
                             **P, **TS, "cost_period_canonical": period, "actor_person_id": None})
@@ -182,21 +195,34 @@ def month_end(y, m):
     nxt = date(y + (m == 12), m % 12 + 1, 1)
     return date.fromordinal(nxt.toordinal() - 1).isoformat()
 
-def bills(acct, provider, amounts, start=(2025, 11), step=1):
-    y, m = start
-    for amt in amounts:
-        end_m, end_y = m + step - 1, y
-        while end_m > 12:
-            end_m -= 12; end_y += 1
-        add("account_bill", {"id": U(), "account_id": acct, "period_start": date(y, m, 1).isoformat(),
-                             "period_end": month_end(end_y, end_m), "amount_cents": amt, "notes": None, **P, **TS,
-                             "provider_person_id": provider, "actor_person_id": None})
-        m += step
-        while m > 12:
-            m -= 12; y += 1
+def month_after(y, m, months):
+    """The month that many months after this one, before it if negative."""
+    count = y * 12 + (m - 1) + months
+    return count // 12, count % 12 + 1
+
+def days_after(day, days):
+    return date.fromordinal(date.fromisoformat(day).toordinal() + days).isoformat()
+
+def bills(acct, provider, amounts, start=(2025, 11), step=1, last_due_in=None):
+    """One bill per amount. With `last_due_in`, every bill was paid twelve days
+    after its period ended, except the last, which is due in that many days."""
+    for i, amt in enumerate(amounts):
+        y, m = month_after(*start, i * step + SHIFT_MONTHS)
+        ends = month_end(*month_after(y, m, step - 1))
+        last = i == len(amounts) - 1
+        due = None
+        if last_due_in is not None:
+            due = date.fromordinal(TODAY.toordinal() + last_due_in).isoformat() if last else days_after(ends, 15)
+        bill = add("account_bill", {"id": U(), "account_id": acct, "period_start": date(y, m, 1).isoformat(),
+                                    "period_end": ends, "amount_cents": amt, "notes": None, **P, **TS,
+                                    "provider_person_id": provider, "actor_person_id": None, "due_on": due})
+        if last_due_in is not None and not last:
+            add("bill_payment", {"id": U(), "account_bill_id": bill, "paid_on": days_after(ends, 12),
+                                 "amount_cents": None, "covers": "all", "paid_by": "you", **P,
+                                 "actor_person_id": None, **TS})
 
 elec = account("electricity", power, None, "4410-2276-01")
-bills(elec, power, [14200, 12900, 11300, 9600, 9200, 13100, 16900, 17400, 14300, 10100, 11800, 13600, 14900, 12700, 10400, 9100, 9800, 14200, 17800, 18600, 15100, 10900], (2025, 1))
+bills(elec, power, [14200, 12900, 11300, 9600, 9200, 13100, 16900, 17400, 14300, 10100, 11800, 13600, 14900, 12700, 10400, 9100, 9800, 14200, 17800, 18600, 15100, 10900], (2025, 1), last_due_in=3)
 wat = account("water", water, None, "W-30817")
 bills(wat, water, [5800, 6100, 8400, 8900, 7200, 6200, 5900, 6400, 7800, 9100, 8700], (2025, 1), 2)
 net = account("internet", fiber, None, "CF-0091142")
@@ -211,18 +237,12 @@ bills(tax, county, [298000, 298000, 315000, 315000], (2025, 1), 6)
 cats = {name: add("category", {"id": U(), "name": name, **TS, "household_id": None, "parent_category_id": None, **P})
         for name in ["Safety", "Heating and cooling", "Appliance care", "Outside", "Car"]}
 
-# The tasks' dates are written as they stood on 12 November 2026, when Now
-# showed two late, two today and a handful this week. They move by the days
-# since, so a capture on any day shows the same Now.
-SHIFT_DAYS = date.today().toordinal() - date(2026, 11, 12).toordinal()
-
 def task(name, type_, cat, anchor, months, asset=None, loc=None, minutes=None, cost=None, safety=0):
-    anchor = date.fromordinal(date.fromisoformat(anchor).toordinal() + SHIFT_DAYS).isoformat()
     tid = add("task_definition", {"id": U(), "name": name, "description": None, "type": type_,
                                   "category_id": cats[cat], "estimated_minutes": minutes, "instructions": None, **TS,
                                   "household_id": None, **P, "expected_cost_cents": cost, "safety_critical": safety})
     add("schedule", {"id": U(), "task_definition_id": tid, "location_id": None, "recurrence_type": "EVERY_N_MONTHS",
-                     "anchor_date": anchor, "interval_days": None, "interval_months": months, "week_ordinal": None,
+                     "anchor_date": moved(anchor), "interval_days": None, "interval_months": months, "week_ordinal": None,
                      "day_of_week": None, "month_of_year": None, "day_of_month": None, "season": None,
                      "days_after_completion": None, "extra_config": None, **TS, "seasonal_trigger": None, **P,
                      "active_from_month": None, "active_to_month": None})
@@ -230,6 +250,15 @@ def task(name, type_, cat, anchor, months, asset=None, loc=None, minutes=None, c
         add("task_asset", {"id": U(), "task_definition_id": tid, "asset_id": asset, **TS, **P})
     if loc:
         add("task_location", {"id": U(), "task_definition_id": tid, "location_id": loc, **TS, **P})
+
+def once(name, type_, cat, due, loc, minutes=None):
+    """A job that happens one time: a to-do on a day, with no schedule."""
+    tid = add("task_definition", {"id": U(), "name": name, "description": None, "type": type_,
+                                  "category_id": cats[cat], "estimated_minutes": minutes, "instructions": None, **TS,
+                                  "household_id": None, **P, "expected_cost_cents": None, "safety_critical": 0})
+    add("task_location", {"id": U(), "task_definition_id": tid, "location_id": loc, **TS, **P})
+    add("task_occurrence", {"id": U(), "task_definition_id": tid, "schedule_id": None, "location_id": loc,
+                            "asset_id": None, "due_date": moved(due), "status": "SCHEDULED", **TS, **P})
 
 task("Replace the furnace filter", "Replacement", "Heating and cooling", "2026-11-05", 3, furnace, minutes=10, cost=1800)
 task("Clean the gutters", "Maintenance", "Outside", "2026-11-09", 6, loc=yard, minutes=90)
@@ -243,6 +272,7 @@ task("Rotate the tires", "Maintenance", "Car", "2026-11-25", 6, car)
 task("Test the sump pump", "Inspection", "Safety", "2026-12-01", 3, loc=mech, minutes=10)
 task("Flush the water heater", "Maintenance", "Appliance care", "2026-12-06", 12, heater, minutes=45)
 task("Vacuum the fridge coils", "Cleaning", "Appliance care", "2027-01-10", 6, fridge, minutes=20)
+once("Fix the back gate latch", "Project", "Outside", "2026-11-14", yard, minutes=30)
 task("Tune up the lawn mower", "Maintenance", "Outside", "2027-03-15", 12, mower, minutes=30)
 
 # ---------------- write the archive ----------------

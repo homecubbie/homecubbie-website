@@ -488,6 +488,21 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 .points .glyph { width: 40px; height: 40px; }
 .points .glyph svg { width: 20px; height: 20px; }
 
+/* the house in a laptop's browser: a window, the screen's own shape */
+.laptop { margin: clamp(2rem, 5vw, 3.5rem) 0 0; }
+.laptop .window {
+  max-width: 60rem;
+  margin: 0 auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  background: var(--card);
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+}
+.laptop .bar { display: flex; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--rule); }
+.laptop .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--rule); }
+.laptop figcaption { font-size: 0.875rem; color: var(--faint); margin-top: var(--s4); text-align: center; }
+
 .default-note {
   margin-top: var(--s6);
   padding: var(--s4) var(--s5);
@@ -814,6 +829,8 @@ code {
   border-radius: 38px;
   background: var(--paper) var(--shot-light) center / cover no-repeat;
 }
+
+.screen.wide { aspect-ratio: 1280 / 800; border-radius: 0; }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .screen { background-image: var(--shot-dark); }

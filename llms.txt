@@ -2,7 +2,7 @@
 
 > HomeCubbie is a free home maintenance and records app for iPhone and Android, coming soon to both stores. It keeps the facts of a home: what is in it, what needs doing, and what is insured until when. It works offline, has no account, and shares only through a server your household runs.
 
-The facts, as of 14 November 2026:
+The facts, as of 22 November 2026:
 
 - Free: no price, no subscription, no advertising, and nothing to buy inside the app.
 - No account: no sign-up, no sign-in, no password, no email address.
@@ -10,14 +10,16 @@ The facts, as of 14 November 2026:
 - No analytics, no crash reporting, no advertising, no trackers.
 - Every room and whether it's kept up; the Things in it, what needs doing, and what was done, by whom and for how much.
 - A Policy has a term, an end date and what it cost last time, and HomeCubbie tells you before it runs out.
-- Reminders are scheduled on the phone: upkeep on the day it falls due, with a nudge every third day while anything is late, and a Policy twice before its term ends.
+- Tasks repeat on a schedule, or happen just once, on a day.
+- Reminders are scheduled on the phone: upkeep on the day it falls due, with a nudge every third day while it is late, and a Policy twice before its term ends. Work left far enough behind folds into one line and stops nudging; a safety check never does.
 - Every Thing lives in its Place, with its make, model and serial number, when it was bought and what it cost, its photos, receipt, manual and warranty, and every repair since.
-- Every bill, premium and repair adds up, month by month and year by year.
+- Every bill, premium and repair adds up, month by month and year by year, in the currency the house picks.
+- A bill can have a due date. It shows two weeks ahead and stays until it's marked paid, with the receipt kept beside the payment. A mortgage keeps where each payment went: the interest, the loan and the escrow.
 - The House manual holds the facts with no date attached: the water shutoff, the breakers, who to call.
 - Upkeep is suggested for each room from more than 250 common household tasks, each with a schedule and a time estimate. Nothing is added until you say so.
 - Bills, serial plates and documents are read on the phone. Nothing is uploaded to be read.
 - A weekly backup, kept on the phone, and a readable copy of the whole house that opens on any computer without HomeCubbie.
-- Sharing is something a household chooses. It runs the small HomeCubbie server on a computer at home, and every phone joins it. Everything is encrypted on the phone before it travels, under a key the server never has.
+- Sharing is something a household chooses. It runs the small HomeCubbie server on a computer at home (a Mac or PC, a NAS, a Raspberry Pi), and every phone joins it. Everything is encrypted on the phone before it travels, under a key the server never has.
 - iPhone and iPad with iOS 16.4 or later. Android phones and tablets with Android 8.0 or later.
 - Not yet in the App Store or Google Play.
 

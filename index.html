@@ -68,7 +68,9 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
         "Reminders scheduled on the phone, for tasks and for renewals",
         "Things with their warranty, repairs, receipts and what has been spent on them",
         "Policies with their term and end date, and a reminder before they run out",
-        "What the house costs, month by month and year by year",
+        "What the house costs, month by month and year by year, in the currency you pick",
+        "Bills with the day they are due, marked paid, with the receipt kept",
+        "Tasks on a schedule, or just once",
         "A House manual, with alarm codes and key safe numbers hidden until tapped",
         "Bills, serial plates and documents read on the phone",
         "A weekly backup, and a readable copy that opens without HomeCubbie",
@@ -125,7 +127,7 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
           <div class="screen" style="--shot-light:url('assets/screens/home-light.png');--shot-dark:url('assets/screens/home-dark.png')"></div>
         </div>
         <div class="device front">
-          <div class="screen" role="img" aria-label="The Now screen: a ring saying nothing is late, then two tasks due today and five this week."
+          <div class="screen" role="img" aria-label="The Now screen: the electricity bill is due in three days, a ring says nothing is late, two tasks are due today, and a one-time task is among the week's."
                style="--shot-light:url('assets/screens/now-light.png');--shot-dark:url('assets/screens/now-dark.png')"></div>
         </div>
       </div>
@@ -168,9 +170,9 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
           <p>Open the kitchen and everything about it is there: the Things in it,
           what needs doing, and what was done — by whom, and for how much.</p>
           <p>A ring around each room shows how much of what came due in the last
-          thirty days was kept up, and <strong>stays open while anything is
-          late</strong>. The house has one too, at the top of Now, with a sentence
-          that says which rooms need you.</p>
+          thirty days was kept up: <strong>solid for what was done, faint for
+          what is late</strong>. The house has one too, at the top of Now, with a
+          sentence that says which rooms need you.</p>
         </div>
         <div class="feature-art">
           <div class="device">
@@ -213,7 +215,7 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
         </div>
         <div class="feature-art">
           <div class="device">
-            <div class="screen" role="img" aria-label="Car insurance, marked renew soon: it ends November 18, this term cost $36 more than the last, and its policy number and claims line are ready to copy."
+            <div class="screen" role="img" aria-label="Car insurance, marked renew soon: it ends November 28, this term cost $36 more than the last, and its policy number and claims line are ready to copy."
                  style="--shot-light:url('assets/screens/policy-light.png');--shot-dark:url('assets/screens/policy-dark.png')"></div>
           </div>
         </div>
@@ -226,13 +228,34 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
           <p>Every bill, premium and repair adds up in one place, <strong>month by
           month and year by year</strong>: the electricity, the property tax, the
           insurance, the plumber.</p>
-          <p>It compares this year with the last, and says what is coming: the
-          renewals ahead, with what each one cost last time.</p>
+          <p>It compares this year with the last, in the currency you pick, and
+          says what is coming: the bills due next, and the renewals ahead with
+          what each one cost last time.</p>
         </div>
         <div class="feature-art">
           <div class="device">
-            <div class="screen" role="img" aria-label="Costs for 2026: $11,723 so far, about $1,066 a month and $250 more than by this time last year, then month by month, split into accounts, policies and unplanned repairs."
+            <div class="screen" role="img" aria-label="Costs for 2026: $11,936 so far, about $1,085 a month and $581 more than by this time last year, then month by month, split into accounts, policies and unplanned repairs."
                  style="--shot-light:url('assets/screens/costs-light.png');--shot-dark:url('assets/screens/costs-dark.png')"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div>
+          <p class="kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2v20l2.5-1.5L9 22l3-1.5L15 22l2.5-1.5L20 22V2l-2.5 1.5L15 2l-3 1.5L9 2 6.5 3.5Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Accounts</p>
+          <h3>Which bill is next, and which are paid</h3>
+          <p>Give a bill the day it is due and it goes on Now two weeks ahead.
+          <strong>It stays there until you mark it paid</strong>, and the receipt
+          is kept with the payment. Every Account keeps its bills, year by year:
+          the electricity, the water, the internet, the property tax.</p>
+          <p>A mortgage keeps where each payment went: the interest, the loan and
+          the escrow. What escrow pays is still counted once in Costs, and nothing
+          asks you to pay it.</p>
+        </div>
+        <div class="feature-art">
+          <div class="device">
+            <div class="screen" role="img" aria-label="The electricity account: a chart of what each bill came to, October's $109 due November 25 with a Mark as paid button, and the months before it, each with the day it was paid."
+                 style="--shot-light:url('assets/screens/bill-light.png');--shot-dark:url('assets/screens/bill-dark.png')"></div>
           </div>
         </div>
       </div>
@@ -311,7 +334,8 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
           <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 2.5v5M16 2.5v5M3 10h18"/></svg></span>
           <h3>Say when</h3>
           <p>Type <q>twice a year</q>, <q>every fall</q> or <q>the first Saturday
-          of the month</q>, and that becomes the schedule.</p>
+          of the month</q>, and that becomes the schedule. A job that happens just
+          once gets a day instead.</p>
         </div>
         <div class="card">
           <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-3.7-3.7"/></svg></span>
@@ -444,10 +468,19 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
         </figure>
       </div>
 
+      <figure class="laptop">
+        <div class="window">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="screen wide" role="img" aria-label="14 Alder Street in a laptop's browser: Now on the left, with the electricity bill due in three days, and November's calendar on the right, each task due and a renewal marked on its day."
+               style="--shot-light:url('assets/screens/laptop-light.png');--shot-dark:url('assets/screens/laptop-dark.png')"></div>
+        </div>
+        <figcaption>The same house in a laptop's browser, from the household's own server.</figcaption>
+      </figure>
+
       <div class="default-note">
         <p><strong>Just this phone stays the default.</strong> Sharing is
         something a household chooses. The server runs on any computer that stays
-        on at home — a Mac mini, a spare laptop, a NAS — with Node or Docker, and
+        on at home — a Mac or PC, a NAS, a Raspberry Pi — with Node or Docker, and
         the app walks you through setting it up.</p>
       </div>
     </div>
@@ -574,7 +607,7 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
         <li><dfn>Property</dfn><span>The house. The root of everything.</span></li>
         <li><dfn>Place</dfn><span>A room or an area.</span></li>
         <li><dfn>Thing</dfn><span>Something owned, living in a Place.</span></li>
-        <li><dfn>Task</dfn><span>Something to do. Needs a schedule to ever surface.</span></li>
+        <li><dfn>Task</dfn><span>Something to do, on a schedule or just once.</span></li>
         <li><dfn>Policy</dfn><span>Anything with a term and an end date — insurance, a warranty, a registration.</span></li>
         <li><dfn>Event</dfn><span>Something that already happened — a repair, a replacement, a purchase.</span></li>
         <li><dfn>Note</dfn><span>A fact about the house. No date, no reminder.</span></li>
@@ -642,12 +675,21 @@ if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}d.classList
           server.</p></div>
         </details>
         <details>
+          <summary>Does it work where I live?</summary>
+          <div><p>Yes. You pick the house's currency, and amounts are typed and
+          shown the way your region writes them. Calendars start the week on your
+          day, and the seasons follow the house, so spring starts in September
+          south of the equator. The app's words are in English.</p></div>
+        </details>
+        <details>
           <summary>What does it remind me about?</summary>
           <div><p>Upkeep, on the day it falls due — the air filter, the gutters,
-          the smoke alarms — with a nudge every third day while anything is late.
-          And a Policy, twice before its term ends, so the home insurance renewal
-          isn't a surprise. Once you allow notifications, they are scheduled on
-          the phone itself, so they arrive with no signal and no server.</p></div>
+          the smoke alarms — with a nudge every third day while it is late. Work
+          left far enough behind folds into one line on Now and stops nudging; a
+          safety check never does. And a Policy, twice before its term ends, so
+          the home insurance renewal isn't a surprise. Once you allow
+          notifications, they are scheduled on the phone itself, so they arrive
+          with no signal and no server.</p></div>
         </details>
         <details>
           <summary>Can it keep an inventory of what's in the house?</summary>

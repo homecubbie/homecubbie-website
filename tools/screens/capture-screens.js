@@ -28,6 +28,7 @@ const SCREENS = [
   ["thing", [["goto", "/home"], ["click", "Kitchen"], ["click", "Fridge"]]],
   ["policy", [["goto", "/records/policies"], ["click", "Car insurance"]]],
   ["costs", [["goto", "/costs"]]],
+  ["bill", [["goto", "/records/accounts"], ["click", "Electricity"]]],
   ["house", [["goto", "/home/about"]]],
   ["place", [["goto", "/home"], ["click", "Kitchen"]]],
   ["suggest", [["goto", "/home"], ["click", "Kitchen"], ["click", "Add here"], ["click", "Task in Kitchen"],
@@ -90,12 +91,12 @@ async function linkPreview() {
   if (!/14 Alder Street is back/.test(restored)) throw new Error("The restore did not finish:\n" + restored.slice(0, 800));
   await ctx.close();
 
-  // 4. Six screens, light and dark.
+  // 4. Every screen, light and dark.
   //
-  // The web build runs in development, so an error the app logs shows as a
-  // red toast over the tab bar. A release build has no such overlay, so it is
-  // closed before each screenshot -- and every error is printed at the end,
-  // so closing it never hides one. Report what it prints to the app.
+  // A development build shows an error the app logs as a red toast over the
+  // tab bar. A release build has no such overlay, so it is closed before each
+  // screenshot -- and every error is printed at the end, so closing it never
+  // hides one. Report what it prints to the app.
   const logged = new Set();
   for (const scheme of ["light", "dark"]) {
     [ctx, page] = await open(profile, scheme);
