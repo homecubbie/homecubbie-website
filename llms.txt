@@ -2,7 +2,7 @@
 
 > HomeCubbie is a free home maintenance and records app for iPhone and Android, coming soon to both stores. It keeps the facts of a home: what is in it, what needs doing, and what is insured until when. It works offline, has no account, and shares only through a server your household runs.
 
-The facts, as of 22 November 2026:
+The facts, as of 25 November 2026:
 
 - Free: no price, no subscription, no advertising, and nothing to buy inside the app.
 - No account: no sign-up, no sign-in, no password, no email address.
